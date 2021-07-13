@@ -1,0 +1,131 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+
+font-family: 'Jua', sans-serif;
+}
+
+body {
+  background-image: #34495e;
+}
+.title{
+    width: 290px;
+    color: black;
+    font-size: 30px;
+}
+
+.loginForm {
+  position:absolute;
+  width:350px;
+  height:450px;
+  padding: 30px, 20px;
+  background-color:#FFFFFF;
+  text-align:center;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 15px;
+}
+
+.loginForm h2{
+  text-align: center;
+  margin: 30px;
+}
+
+.idForm{
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+.passForm{
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+.table_num {
+  width: 250px;
+  border:none;
+  outline:none;
+  color: black;
+  font-size:30px;
+  height:25px;
+  background: none;
+  text-align: center;
+}
+
+.phone_num {
+  width: 250px;
+  border:none;
+  outline:none;
+  color: black;
+  font-size:30px;
+  height:25px;
+  background: none;
+  text-align: center;
+}
+.keypad{
+   width:450px;
+  height:300px;
+
+  padding: 10px 10px;
+}
+.btn-group{
+    width: 450px;
+    margin-bottom: 20px;
+
+}
+.button_keypad{
+  font-size:30px;
+  padding-right: 40px;
+  padding-left: 40px;
+
+}
+
+.btn_menu {
+  position:relative;
+  left:40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:80%;
+  height:40px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+  background-position: left;
+  background-size: 200%;
+  color:white;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+  font-size: 30px;
+}
+.touch{
+   position:relative;
+  left:40%;
+  transform: translateX(-50%);
+ margin:30px;
+  padding:30px;
+  width:500px;
+  height:400px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+  background-position: left;
+  background-size: 200%;
+  color:white;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+  border-radius: 60px;
+  font-size:40px;
+
+}
+.btn:hover {
+  background-position: right;
+}
+
+.bottomText {
+  text-align: center;
+}

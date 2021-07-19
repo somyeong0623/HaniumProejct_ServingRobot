@@ -1,5 +1,4 @@
 let total_price=0;
-
 let kcount1=0;
 let kprice1=0;
 let kprice1_total=0;

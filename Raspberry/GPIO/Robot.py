@@ -40,10 +40,10 @@ def GoToServing(now_r_s_id) :
     next_sig = GetValue(Center, r_s_id + 1, 'sig')
 
     if next_sig == 1:
-        print('Go To ', r_s_id + 1, 's_id Serving')
+        print('Order to Order ', r_s_id + 1, 'th s_id')
         Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
-        GoToServing(r_s_id)
-        return r_s_id + 1
+        r_s_id = GoToServing(r_s_id)
+        return r_s_id
 
     print(r_s_id + 1, 's_id sig != 1')
     return r_s_id
@@ -72,7 +72,7 @@ while True:
             next_sig = GetValue(Center, c_s_id + 1, 'sig')
 
             if next_sig == 1 :
-                print('Go To ', r_s_id + 1, 's_id Serving')
+                print('Order to Order ', r_s_id + 1, 'th s_id')
                 Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
                 r_s_id = GoToServing(r_s_id)
 
@@ -95,6 +95,14 @@ while True:
                 time.sleep(5)
                 # 서빙 완료 대기! sig가 0으로 바뀌면 동작
                 # 주방으로 복귀, 알고리즘 마무리
+
+            next_sig = GetValue(Center, c_s_id + 1, 'sig')
+
+            if next_sig == 1:
+                print('Serving to Order ', r_s_id + 1, 'th s_id')
+                Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
+                r_s_id = GoToServing(r_s_id)
+                print('if under line', r_s_id)
 
             Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
             r_s_id += 1

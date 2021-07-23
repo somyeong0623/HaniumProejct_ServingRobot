@@ -1,9 +1,15 @@
 from pymongo import MongoClient
+import time
 
 client = MongoClient("mongodb+srv://Berrykind:<password>@cluster0.z7rql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-db = client.get_database('student_db')
-records = db.student_records
+db = client.get_database('Serving_Robot')
+
+Robot = db.Robot
+Center = db.Center
+
+r_s_id = int(1)
+c_s_id = int(0)
 
 
 def GetValue(self, s_id, target):

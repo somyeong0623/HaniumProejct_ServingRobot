@@ -36,7 +36,7 @@ def save_order():
     #
     # db.orders.insert_one(doc)
 
-    return jsonify({'msg': 'POST 요청 완료되었습니다!'})
+    return jsonify({'msg': '아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ 잘 되니??????'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

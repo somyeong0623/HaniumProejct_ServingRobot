@@ -22,7 +22,7 @@ def show_menu():
     return jsonify({'msg': 'GET 연결 완료!'})
 
 # 주문하기(POST) API
-@app.route('/pos', methods=['POST'])
+@app.route('/', methods=['POST'])
 def save_order():
     sample_receive = request.form['sample_give']
     print(sample_receive)

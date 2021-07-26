@@ -1,13 +1,14 @@
 let total_price=0;
 let kcount1=0;
+
 let kprice1=0;
 let kprice1_total=0;
-
 function add_kfood1(){
 		let menu_image=$('#kimage1').attr('src');
     	let menu_name=$('#kname1').text();
-    	let menu_price=$('#kprice1').text()
+    	let menu_price=$('#kprice1').text();
     	let temp_html = `<tr id="bibimbap">
+	
 \t<td>
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
@@ -46,20 +47,11 @@ function add_kfood1(){
 		total_price+=kprice1;
 		$('#total_price').text(total_price);
 	}
-	else{
-	kkcount1+=1;
-	total_price+=kprice1;
-	kprice1_total+=kprice1;
-	$('#kcount1').text(kkcount1);
-	$('#total_price').text(total_price);
-		}
 }
-
 
 function delete_kfood1() {
         $('#bibimbap').remove();
-        kcount1=kcount1-1;
-        kkcount1=1;
+        kcount1=0
         total_price-=kprice1_total;
         $('#total_price').text(total_price);
     }
@@ -110,19 +102,10 @@ function add_kfood2(){
 		total_price+=kprice2;
 		$('#total_price').text(total_price);
 	}
-	else{
-	kkcount2+=1;
-	total_price+=kprice2;
-	kprice1_total+=kprice2;
-	$('#kcount2').text(kkcount2);
-	$('#total_price').text(total_price);
-		}
-
 }
 function delete_kfood2() {
         $('#bulgogi').remove();
-        kcount2=kcount2-1;
-        kkcount2=1;
+          kcount2=0
          total_price-=kprice2_total;
         $('#total_price').text(total_price);
     }
@@ -173,18 +156,10 @@ function add_kfood3(){
 		total_price+=kprice3;
 		$('#total_price').text(total_price);
 	}
-	else{
-	kkcount3+=1;
-	total_price+=kprice3;
-	kprice1_total+=kprice3;
-	$('#kcount3').text(kkcount3);
-	$('#total_price').text(total_price);
-		}
 }
 function delete_kfood3() {
         $('#kimchi_stew').remove();
-        kcount3=kcount3-1;
-        kkcount3=1;
+        kcount3=0;
         total_price-=kprice3_total;
         $('#total_price').text(total_price);
     }
@@ -235,22 +210,13 @@ function add_kfood4(){
 		total_price+=kprice4;
 		$('#total_price').text(total_price);
 	}
-	else{
-	kkcount4+=1;
-	total_price+=kprice4;
-	kprice1_total+=kprice4;
-	$('#kcount4').text(kkcount4);
-	$('#total_price').text(total_price);
-		}
 }
 function delete_kfood4() {
         $('#Soybean_Paste_Stew').remove();
-        kcount4=kcount4-1;
-        kkcount4=1;
+        kcount4=0;
         total_price-=kprice4_total;
         $('#total_price').text(total_price);
     }
-
 let ccount1=0;
 let cprice1;
 let cprice1_total=0;
@@ -297,18 +263,10 @@ function add_cfood1(){
 		total_price+=cprice1;
 		$('#total_price').text(total_price);
 	}
-	else{
-	ccount1+=1;
-	total_price+=cprice1;
-	cprice1_total+=cprice1;
-	$('#ccount1').text(ccount1);
-	$('#total_price').text(total_price);
-		}
 }
 function delete_cfood1() {
         $('#Jajangmyeon').remove();
-        ccount1=ccount1-1;
-        cccount1=1;
+        ccount1=0;
         total_price-=cprice1_total;
         $('#total_price').text(total_price);
     }
@@ -359,18 +317,10 @@ function add_cfood2(){
 		total_price+=cprice2;
 		$('#total_price').text(total_price);
 	}
-	else{
-	ccount2+=1;
-	total_price+=cprice2;
-	cprice1_total+=cprice2;
-	$('#ccount2').text(ccount2);
-	$('#total_price').text(total_price);
-		}
 }
 function delete_cfood2() {
         $('#jjamppong').remove();
-        ccount2=ccount2-1;
-        cccount2=1;
+        ccount2=0;
         total_price-=cprice2_total;
         $('#total_price').text(total_price);
     }
@@ -420,18 +370,11 @@ function add_cfood3(){
 		cprice3_total=cprice3;
 		total_price+=cprice3;
 		$('#total_price').text(total_price);
-	}else{
-	ccount3+=1;
-	total_price+=cprice3;
-	cprice3_total+=cprice3;
-	$('#ccount3').text(ccount3);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_cfood3() {
         $('#Sweet_and_sour_pork').remove();
-        ccount3=ccount3-1;
-        cccount3=1;
+        ccount3=0;
         total_price-=cprice3_total;
         $('#total_price').text(total_price);
     }
@@ -481,18 +424,11 @@ function add_cfood4(){
 		cprice4_total = cprice4;
 		total_price += cprice4;
 		$('#total_price').text(total_price);
-	}else{
-	ccount4+=1;
-	total_price+=cprice4;
-	cprice4_total+=cprice4;
-	$('#ccount4').text(ccount4);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_cfood4() {
         $('#fried_rice').remove();
-        ccount4=ccount4-1;
-        cccount4=1;
+        ccount4=0;
         total_price-=cprice4_total;
         $('#total_price').text(total_price);
     }
@@ -542,18 +478,11 @@ function add_afood1(){
 		aprice1_total=aprice1;
 		total_price+=aprice1;
 		$('#total_price').text(total_price);
-	}else{
-	acount1+=1;
-	total_price+=aprice1;
-	aprice1_total+=aprice1;
-	$('#acount1').text(acount1);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_afood1() {
         $('#tomato_pasta').remove();
-        acount1=acount1-1;
-        aacount1=1;
+        acount1=0;
         total_price-=aprice1_total;
         $('#total_price').text(total_price);
     }
@@ -603,18 +532,11 @@ function add_afood2(){
 		aprice2_total=aprice2;
 		total_price+=aprice2;
 		$('#total_price').text(total_price);
-	}else{
-	acount2+=1;
-	total_price+=aprice2;
-	aprice2_total+=aprice2;
-	$('#acount2').text(acount2);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_afood2() {
         $('#Hamburg_Steak').remove();
-        acount2=acount2-1;
-        aacount2=1;
+        acount2=0;
         total_price-=aprice2_total;
         $('#total_price').text(total_price);
     }
@@ -664,18 +586,11 @@ function add_afood3(){
 		aprice3_total=aprice3;
 		total_price+=aprice3;
 		$('#total_price').text(total_price);
-	}else{
-	acount3+=1;
-	total_price+=aprice3;
-	aprice3_total+=aprice3;
-	$('#acount3').text(acount3);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_afood3() {
         $('#Omurice').remove();
-        acount3=acount3-1;
-        aacount3=1;
+        acount3=0;
         total_price-=aprice3_total;
         $('#total_price').text(total_price);
     }
@@ -725,18 +640,11 @@ function add_afood4(){
 		aprice4_total=aprice4;
 		total_price+=aprice4;
 		$('#total_price').text(total_price);
-	}else{
-	acount4+=1;
-	total_price+=aprice4;
-	aprice4_total+=aprice4;
-	$('#acount4').text(acount4);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_afood4() {
         $('#pizza').remove();
-        acount4=acount4-1;
-        aacount4=1;
+        acount4=0;
         total_price-=aprice4_total;
         $('#total_price').text(total_price);
     }
@@ -786,18 +694,11 @@ function add_jfood1(){
 		jprice1_total=jprice1;
 		total_price+=jprice1;
 		$('#total_price').text(total_price);
-	}else{
-	jcount1+=1;
-	total_price+=jprice1;
-	jprice1_total+=jprice1;
-	$('#jcount1').text(jcount1);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_jfood1() {
         $('#pork_cutlet').remove();
-        jcount1=jcount1-1;
-        jjcount1=1;
+        jcount1=0;
         total_price-=jprice1_total;
         $('#total_price').text(total_price);
     }
@@ -847,18 +748,11 @@ function add_jfood2(){
 		jprice2_total=jprice2;
 		total_price+=jprice2;
 		$('#total_price').text(total_price);
-	}else{
-	jcount2+=1;
-	total_price+=jprice2;
-	jprice2_total+=jprice2;
-	$('#jcount2').text(jcount2);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_jfood2() {
         $('#Okonomiyaki').remove();
-        jcount2=jcount2-1;
-        jjcount2=1;
+        jcount2=0;
         total_price-=jprice2_total;
         $('#total_price').text(total_price);
     }
@@ -908,18 +802,11 @@ function add_jfood3(){
 		jprice3_total=jprice3;
 		total_price+=jprice3;
 		$('#total_price').text(total_price);
-	}else{
-	jcount3+=1;
-	total_price+=jprice3;
-	jprice3_total+=jprice3;
-	$('#jcount3').text(jcount3);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_jfood3() {
         $('#Katsudon').remove();
-        jcount3=jcount3-1;
-        jjcount3=1;
+        jcount3=0;
         total_price-=jprice3_total;
         $('#total_price').text(total_price);
     }
@@ -969,18 +856,11 @@ function add_jfood4(){
 		jprice4_total=jprice4;
 		total_price+=jprice4;
 		$('#total_price').text(total_price);
-	}else{
-	jcount4+=1;
-	total_price+=jprice4;
-	jprice4_total+=jprice4;
-	$('#jcount4').text(jcount4);
-	$('#total_price').text(total_price);
-		}
+	}
 }
 function delete_jfood4() {
         $('#sushi').remove();
-        jcount4=jcount4-1;
-        jjcount4=1;
+        jcount4=0;
         total_price-=jprice4_total;
         $('#total_price').text(total_price);
     }

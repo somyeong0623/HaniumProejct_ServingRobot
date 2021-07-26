@@ -78,32 +78,32 @@ def save_order():
 
 
 # doc의 menu원소에 메뉴리스트{"name" "count"} 추가
-@app.route('/add1', methods=['POST'])
-def add_kmenu1():
+@app.route('/payment', methods=['POST'])
+def menu_payment():
 
     ##여기 o_id에 save_table_no의 함수에서 받아온 o_id 넣어줘야함...어케하냐..
     o_id:1
-    name_receive = request.form['name_give']
-    count_receive = request.form['count_give']
-    #자바 스크립트에서 +1된 값 넘겨받을 예정
+    menulist_receive = request.form['menulist_give']
+    print(menulist_receive)
+    # for i in menulist_receive:
+    #     print(i["name"], i["count"])
 
-    doc={
-        'menu_name': name_receive,
-        'menu_count': count_receive
-    }
+    # doc={
+    #     'menu_name': name_receive,
+    #     'menu_count': count_receive
+    # }
+    #
+    # db.menu.update(
+    #     {"o_s_id":o_id},
+    #     {
+    #  "$push":{
+    #         "menu":[
+    #            {"name":"전주비빔밥","count":1}
+    #         ]
+    #     }
+    # })
 
-    db.menu.update(
-        {"o_s_id":o_id},
-        {
-     "$push":{
-            "menu":[
-               {"name":"전주비빔밥","count":1}
-            ]
-        }
-    })
-
-
-    return jsonify({'msg':'전주비빔밥 메뉴를 추가하였다! '})
+    return jsonify({'msg':'주문내역을 결제하러 가자! '})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

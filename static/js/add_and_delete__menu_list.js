@@ -1,3 +1,5 @@
+//각각의 메뉴 에서 [추가버튼]을 눌렀을때, 장바구니에 해당 메뉴의 사진,이름,수량,가격이 html코드로 삽입되는 코드 구현
+
 let total_price=0;
 let kcount1=0;
 
@@ -68,7 +70,7 @@ function add_kfood2(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name" >${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -78,7 +80,7 @@ function add_kfood2(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="kcount2" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="kplus2()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -122,7 +124,7 @@ function add_kfood3(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -132,7 +134,7 @@ function add_kfood3(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="kcount3" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="kplus3()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -176,7 +178,7 @@ function add_kfood4(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -186,7 +188,7 @@ function add_kfood4(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="kcount4" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="kplus4()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -238,9 +240,11 @@ function add_cfood1(){
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cminus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button "id="ccount1" type="button"
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="ccount1" type="button"
                                                                                 class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
+                                                                                   
+                                                                                
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cplus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-plus"></i></button>
@@ -283,7 +287,7 @@ function add_cfood2(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -293,7 +297,7 @@ function add_cfood2(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="ccount2" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cplus2()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -337,7 +341,7 @@ function add_cfood3(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -347,7 +351,7 @@ function add_cfood3(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="ccount3" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cplus3()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -389,9 +393,9 @@ function add_cfood4(){
     	let temp_html = `<tr id="fried_rice">
 \t<td>
 <figure class="media">
-\t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
+\t<div class="img-wrap "><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -401,7 +405,7 @@ function add_cfood4(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="ccount4" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cplus4()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -445,7 +449,7 @@ function add_afood1(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -455,7 +459,7 @@ function add_afood1(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="acount1" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="aplus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -499,7 +503,7 @@ function add_afood2(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -509,7 +513,7 @@ function add_afood2(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="acount2" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="aplus2()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -553,7 +557,7 @@ function add_afood3(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -563,7 +567,7 @@ function add_afood3(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="acount3" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="aplus3()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -607,7 +611,7 @@ function add_afood4(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -617,7 +621,7 @@ function add_afood4(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="acount4" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="aplus4()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -661,7 +665,7 @@ function add_jfood1(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -671,7 +675,7 @@ function add_jfood1(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="jcount1" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="jplus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -715,7 +719,7 @@ function add_jfood2(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -725,7 +729,7 @@ function add_jfood2(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="jcount2" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="jplus2()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -769,7 +773,7 @@ function add_jfood3(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -779,7 +783,7 @@ function add_jfood3(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="jcount3" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="jplus3()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -823,7 +827,7 @@ function add_jfood4(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -833,7 +837,7 @@ function add_jfood4(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="jcount4" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="jplus4()" type="button"
                                                                                 class="m-btn btn btn-default"><i

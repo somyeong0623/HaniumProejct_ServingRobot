@@ -87,7 +87,7 @@
 		<figcaption class="info-wrap">
 			<a href="#" class="title" id="kname1">전주비빔밥</a>
 			<div class="action-wrap">
-				<button onclick="add_kfood1();add1();" type="button" class="btn btn-primary btn-sm float-right"> <i
+				<button onclick="add_kfood1()" type="button" class="btn btn-primary btn-sm float-right"> <i
                         class="fa fa-cart-plus"></i> 추가 </button>
 				<div class="price-wrap h5">
 					<span class="price-new" id="kprice1">7000원</span>
@@ -392,7 +392,7 @@
 
                     <dl class="dlist-align">
                         <dt>총 금액:</dt>
-                        <dd id="total_price" class="text-right h4 b"> 0</dd>
+                        <dd id="total_price" class="text-right h4 b total_price"> 0</dd>
                     </dl>
                     <div class="row">
                         <div class="col-md-6">
@@ -541,6 +541,7 @@
         $('#total_price').text(total_price);
     }
 
+
 		$(document).ready(function () {
 			listing()
 		})
@@ -557,16 +558,7 @@
 		}
 
 	function posting() {
-    	payment();
-
-	// 	$.ajax({
-	// 		type: "POST",
-	// 		url: "/menu",
-	// 		data: {sample_give: '샘플데이터'},
-	// 		success: function (response) {
-	// 			alert(response['msg'])
-	// 		}
-	// 	})
+    	payment(); // 이함수는 menu_ajax.js에 있음
 	}
 	function close() {
 		$('#dialog').on('hidden.bs.modal')

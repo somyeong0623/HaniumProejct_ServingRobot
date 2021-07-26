@@ -20,7 +20,7 @@ doc={
 }
 # db.menu.insert(doc)
 db.menu.update(
-    {"o_s_id":1},
+    {"o_s_id":i, "table_no":table_num},
     {
  "$push":{
         "menu":[
@@ -28,4 +28,6 @@ db.menu.update(
         ]
     }
 })
+
+## 음식 수량 조절했을때 Order의 menu의 count update 하는코드
 

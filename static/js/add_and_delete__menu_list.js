@@ -13,7 +13,7 @@ function add_kfood1(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -23,7 +23,7 @@ function add_kfood1(){
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="kcount1" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="kplus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
@@ -229,7 +229,7 @@ function add_cfood1(){
 <figure class="media">
 \t<div class="img-wrap"><img src="${menu_image}" class="img-thumbnail img-xs"></div>
 \t<figcaption class="media-body">
-\t\t<h6 class="title text-truncate">${menu_name} </h6>
+\t\t<h6 class="title text-truncate menu_name">${menu_name} </h6>
 \t</figcaption>
 </figure>
 \t</td>
@@ -238,8 +238,8 @@ function add_cfood1(){
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cminus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i
                                                                                 class="fa fa-minus"></i></button>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button id="ccount1" type="button"
-                                                                                class="m-btn btn btn-default count-color"
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button "id="ccount1" type="button"
+                                                                                class="m-btn btn btn-default count-color menu_count"
                                                                                 disabled>1</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button onclick="cplus1()" type="button"
                                                                                 class="m-btn btn btn-default"><i

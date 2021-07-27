@@ -33,7 +33,7 @@ def menu():
 @app.route('/initial', methods=['GET'])
 def show_initial():
     sample_receive = request.args.get('sample_give')
-    print(sample_receive)
+    print('초기화면 get 완료')
     return jsonify({'msg': '초기 화면 GET 완료!'})
 
 # 초기화면 : 테이블번호, o_s_id받아와서 Order collection에 doc 추가.
@@ -41,16 +41,19 @@ def show_initial():
 def save_table_no():
     i = int()
     i = CalNexts_o_id(Order)
+    table_no_receive = request.form['table_no_give']
+    table_num=int(table_no_receive)
 
-    table_no_receive = request.args.get('table_no_give')
-    print(table_no_receive)
+    # data=request.json
+    # table_no_receive=jsonify(data)['table_no_give']
+    print(table_num)
     doc={
         'o_id':i,
-        'table_no':table_no_receive,
+        'table_no':table_num,
         'menu':""
     }
     Order.insert_one(doc)
-    return jsonify({'msg':'테이블번호가 저장되었습니다!!'})
+    return jsonify({'msg':'테이블번호가 저장되었습니다!!','o_id':i})
 
 
 

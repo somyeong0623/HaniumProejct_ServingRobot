@@ -12,9 +12,23 @@
 //         }
 //     })
 // }
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}
 //
-
-var table_no = getUrlVars()["table_number"];
+var table_no = GetURLParameter('table_number');
+var o_id=GetURLParameter('o_id')
+// var table_no = getUrlVars();
 
 function payment() {
     let list = [];
@@ -26,13 +40,17 @@ function payment() {
         console.log(menu_name, menu_count);
         list.push({"name": menu_name,"count": menu_count});
     });
-    console.log(table_no);
+    console.log("table_no"+table_no, "o_id"+o_id );
     console.log(list);
+
+    var data = JSON.stringify({menulist_give: list});
+
 
     $.ajax({
         type: "POST",
         url: "/payment",
-        data: {menulist_give:list},
+        contentType: "application/json",
+        data: data,
         success: function (response) {
             alert(response['msg'])
         }

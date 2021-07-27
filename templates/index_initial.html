@@ -470,6 +470,7 @@
 
     function initial_posting() {
         let table_no=$('#table_number').val()
+        // var o_id=0
         console.log("table number: " ,table_no)
 
         $.ajax({
@@ -477,11 +478,15 @@
             url: "/initial",
             data: {table_no_give:table_no},
             success: function (response) {
-                alert(response['msg'])
+                msg=response['msg']
+                o_id=response['o_id']
+                alert(msg)
+                alert(o_id)
+                location.href='pos?table_number='+table_no+'&o_id='+o_id;
 
             }
         })
-        location.href='pos?table_number='+table_no;
+
     }
 
 </script>

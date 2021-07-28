@@ -102,10 +102,8 @@ def kitchen():
 @app.route('/kitchen_pos', methods=['GET'])
 def show_order():
     orders = list(Order.find({}, {'_id': False}))
-    return jsonify({'all_orders': orders})
-
-
-
+    print(orders)
+    return jsonify({'msg':'주방포스 연결 완료!','all_orders':orders})
 
 
 if __name__ == '__main__':

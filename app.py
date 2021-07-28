@@ -24,7 +24,12 @@ def CalNexts_o_id(self):  # self에는 Colection이름이 들어가면 됩니다
 # 초기화면 보여주기
 @app.route('/')
 def home():
+    return render_template('face.html')
+
+@app.route('/start')
+def start():
     return render_template('index_initial.html')
+
 
 
 # 메뉴화면 보여주기
@@ -36,9 +41,7 @@ def menu():
 # 초기화면 연결 확인
 @app.route('/initial', methods=['GET'])
 def show_initial():
-    sample_receive = request.args.get('sample_give')
-    print('초기화면 get 완료')
-    return jsonify({'msg': '초기 화면 GET 완료!'})
+    return jsonify()
 
 
 # 초기화면 : 테이블번호, o_s_id받아와서 Order collection에 doc 추가.
@@ -56,7 +59,7 @@ def save_table_no():
         'table_no': table_num,
         'menu': "",
         'total_price': 0,
-        'complete': 0
+        'status': "처리중"
     }
     Order.insert_one(doc)
     return jsonify({'msg': '테이블번호가 저장되었습니다!!', 'o_id': i})
@@ -89,6 +92,20 @@ def menu_payment():
             }
         })
     return jsonify()
+
+# 주방포스 로드
+@app.route('/kitchen')
+def kitchen():
+    return render_template('kitchen.html')
+
+# kitchen pos에 주문내역 보여주는 api
+@app.route('/kitchen_pos', methods=['GET'])
+def show_order():
+    orders = list(Order.find({}, {'_id': False}))
+    return jsonify({'all_orders': orders})
+
+
+
 
 
 if __name__ == '__main__':

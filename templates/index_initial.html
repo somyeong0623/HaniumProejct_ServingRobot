@@ -237,7 +237,7 @@
 
 <body width="100%" height="100%">
 <form action="index.html" method="post" class="loginForm">
-    <h2 class="title"> Food court에 오신것을 환영합니다!!</h2>
+    <h2 class="title"> Food court에 오신것을 환영합니다!! 테스트지롱</h2>
     <div class="idForm">
         <input id="table_number" class="table_num trigger1" placeholder="테이블번호 입력">
     </div>
@@ -471,7 +471,7 @@
     function initial_posting() {
         let table_no=$('#table_number').val()
         // var o_id=0
-        console.log("table number: " ,table_no)
+        console.log("table number: ",table_no)
 
         $.ajax({
             type: "POST",
@@ -481,7 +481,6 @@
                 msg=response['msg']
                 o_id=response['o_id']
                 alert(msg)
-                alert(o_id)
                 location.href='pos?table_number='+table_no+'&o_id='+o_id;
 
             }

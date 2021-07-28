@@ -37,22 +37,22 @@ function payment() {
         var td = tr.children();
         let menu_name = td.find('.menu_name').text();
         let menu_count = td.find('.menu_count').text();
-        console.log(menu_name, menu_count);
+        // console.log(menu_name, menu_count);
         list.push({"name": menu_name,"count": menu_count});
     });
-    console.log("table_no"+table_no, "o_id"+o_id );
+    let total_price=$('#total_price').text();
+    console.log("table_no: "+table_no, "o_id: "+o_id ,"total_price: ",total_price);
     console.log(list);
 
-    var data = JSON.stringify({menulist_give: list});
+    var data = JSON.stringify({menulist_give: list, o_id_give:o_id, total_price_give:total_price});
 
 
     $.ajax({
         type: "POST",
-        url: "/payment",
+        url: "/menu",
         contentType: "application/json",
         data: data,
         success: function (response) {
-            alert(response['msg'])
         }
     })
 

@@ -41,8 +41,9 @@
             height: 200px;
 			margin: 0px auto;
 
+
 		}
-		.dal-body{
+		.modal-body{
 			text-align : center;
 		}
     </style>
@@ -399,7 +400,7 @@
                             <button onclick="remove_menu_list()" class="btn  btn-default btn-error btn-lg btn-block"> 취소 </button>
                         </div>
                         <div class="col-md-6">
-                            <button onclick="posting()" href="#" class="btn  btn-primary btn-lg btn-block"
+                            <button href="#" class="btn  btn-primary btn-lg btn-block"
 							data-toggle="modal" data-target="#dialog">
                                 결제 </button>
                         </div>
@@ -446,7 +447,7 @@
       </div>
      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button onclick="close()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">결제</button>
+        <button onclick="posting()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">확인</button>
       </div>
     </div>
   </div>
@@ -548,11 +549,10 @@
 		function listing(){
 			$.ajax({
     type: "GET",
-    url: "/menu?sample_give=샘플데이터",
+    url: "/menu",
     data: {},
     success: function(response){
     	console.log(response)
-       alert(response['msg'])
     }
   })
 		}
@@ -561,8 +561,9 @@
     	payment(); // 이함수는 menu_ajax.js에 있음
 	}
 	function close() {
-		$('#dialog').on('hidden.bs.modal')
+		$('#dialog').modal("hide"); //닫기
 	}
+
 
 
 

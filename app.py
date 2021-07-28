@@ -15,9 +15,9 @@ def CalNexts_o_id(self):  # self에는 Colection이름이 들어가면 됩니다
     max = int()
     max = 0
     x = self.find().sort("o_id")
-    for i in x:
-        if i['o_id'] > max:
-            max = i['o_id']
+    for j in x:
+        if j['o_id'] > max:
+            max = j['o_id']
     return max + 1
 
 
@@ -44,7 +44,6 @@ def show_initial():
 # 초기화면 : 테이블번호, o_s_id받아와서 Order collection에 doc 추가.
 @app.route('/initial', methods=['POST'])
 def save_table_no():
-    i = int()
     i = CalNexts_o_id(Order)
     table_no_receive = request.form['table_no_give']
     table_num = int(table_no_receive)
@@ -55,7 +54,9 @@ def save_table_no():
     doc = {
         'o_id': i,
         'table_no': table_num,
-        'menu': ""
+        'menu': "",
+        'total_price': 0,
+        'complete': 0
     }
     Order.insert_one(doc)
     return jsonify({'msg': '테이블번호가 저장되었습니다!!', 'o_id': i})
@@ -66,9 +67,6 @@ def save_table_no():
 def show_menu():
     return jsonify()
 
-
-
-# doc의 menu원소에 메뉴리스트{"name" "count"} 추가
 @app.route('/menu', methods=['POST'])
 def menu_payment():
     data = request.get_json()

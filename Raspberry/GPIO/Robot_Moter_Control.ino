@@ -1,14 +1,14 @@
-#define ckwiseC 26
-#define c_ckwiseC 27
-#define Enable_C 4
+#define ckwiseA 22
+#define c_ckwiseA 23
+#define Enable_A 2
 
-#define ckwiseB 22
-#define c_ckwiseB 23
-#define Enable_B 2
+#define ckwiseB 27
+#define c_ckwiseB 26
+#define Enable_B 4
 
-#define ckwiseA 30
-#define c_ckwiseA 31
-#define Enable_A 6
+#define ckwiseC 30
+#define c_ckwiseC 31
+#define Enable_C 6
 
 byte straight = 100;
 
@@ -50,24 +50,7 @@ if(dir == 0) //FORWARD
 
 {
 
-digitalWrite(ckwiseA,HIGH);
-
-digitalWrite(c_ckwiseA,LOW);
-
-digitalWrite(ckwiseB,LOW);
-
-digitalWrite(c_ckwiseB,LOW);
-
-digitalWrite(ckwiseC,LOW);
-
-digitalWrite(c_ckwiseC,HIGH);
-}
-
-else if(dir == 1) //turn right
-
-{
-
-digitalWrite(ckwiseA,HIGH);
+digitalWrite(ckwiseA,LOW);
 
 digitalWrite(c_ckwiseA,LOW);
 
@@ -77,16 +60,53 @@ digitalWrite(c_ckwiseB,HIGH);
 
 digitalWrite(ckwiseC,HIGH);
 
-digitalWrite(c_ckwiseC,LOW); 
+digitalWrite(c_ckwiseC,LOW);
+
+}
+
+else if(dir == 1) //turn right
+
+{
+
+
+digitalWrite(ckwiseA,LOW);
+
+digitalWrite(c_ckwiseA,HIGH);
+
+digitalWrite(ckwiseB,LOW);
+
+digitalWrite(c_ckwiseB,HIGH);
+
+digitalWrite(ckwiseC,LOW);
+
+digitalWrite(c_ckwiseC,HIGH); 
+
 }
 
 else if(dir == 2) //turn left
 
 {
+  
+digitalWrite(ckwiseA,HIGH);
 
+digitalWrite(c_ckwiseA,LOW);
+
+digitalWrite(ckwiseB,HIGH);
+
+digitalWrite(c_ckwiseB,LOW);
+
+digitalWrite(ckwiseC,HIGH);
+
+digitalWrite(c_ckwiseC,LOW);
+
+}
+
+else if(dir == 3) //backward
+
+{
 digitalWrite(ckwiseA,LOW);
 
-digitalWrite(c_ckwiseA,HIGH);
+digitalWrite(c_ckwiseA,LOW);
 
 digitalWrite(ckwiseB,HIGH);
 
@@ -95,23 +115,7 @@ digitalWrite(c_ckwiseB,LOW);
 digitalWrite(ckwiseC,LOW);
 
 digitalWrite(c_ckwiseC,HIGH);
-}
 
-else if(dir == 3) //backward
-
-{
-
-digitalWrite(ckwiseA,LOW);
-
-digitalWrite(c_ckwiseA,HIGH);
-
-digitalWrite(ckwiseB,LOW);
-
-digitalWrite(c_ckwiseB,LOW);
-
-digitalWrite(ckwiseC,HIGH);
-
-digitalWrite(c_ckwiseC,LOW);
 }
 
 else if(dir == 4) //default

@@ -1,26 +1,16 @@
-#define ckwiseA 22
-#define c_ckwiseA 23
+#define ckwiseA 30
+#define c_ckwiseA 31
 #define Enable_A 2
 
-#define ckwiseB 27
-#define c_ckwiseB 26
+#define ckwiseB 34
+#define c_ckwiseB 35
 #define Enable_B 4
-
-#define ckwiseC 30
-#define c_ckwiseC 31
-#define Enable_C 6
 
 byte straight = 100;
 
 byte corner = 80;
 
 void setup() {
-
-pinMode(ckwiseC,OUTPUT);
-
-pinMode(c_ckwiseC,OUTPUT);
-
-pinMode(Enable_C,OUTPUT);
 
 pinMode(ckwiseB,OUTPUT);
 
@@ -39,7 +29,6 @@ void motor_speed(int spd)
 {  
   analogWrite(Enable_A,spd);  
   analogWrite(Enable_B,spd);  
-  analogWrite(Enable_C,spd);  
 }  
 
 void motor_dir(int dir)
@@ -52,15 +41,11 @@ if(dir == 0) //FORWARD
 
 digitalWrite(ckwiseA,LOW);
 
-digitalWrite(c_ckwiseA,LOW);
+digitalWrite(c_ckwiseA,HIGH);
 
-digitalWrite(ckwiseB,LOW);
+digitalWrite(ckwiseB,HIGH);
 
-digitalWrite(c_ckwiseB,HIGH);
-
-digitalWrite(ckwiseC,HIGH);
-
-digitalWrite(c_ckwiseC,LOW);
+digitalWrite(c_ckwiseB,LOW);
 
 }
 
@@ -68,6 +53,21 @@ else if(dir == 1) //turn right
 
 {
 
+
+digitalWrite(ckwiseA,HIGH);
+
+digitalWrite(c_ckwiseA,LOW);
+
+digitalWrite(ckwiseB,HIGH);
+
+digitalWrite(c_ckwiseB,LOW);
+
+
+}
+
+else if(dir == 2) //turn left
+
+{
 
 digitalWrite(ckwiseA,LOW);
 
@@ -77,44 +77,18 @@ digitalWrite(ckwiseB,LOW);
 
 digitalWrite(c_ckwiseB,HIGH);
 
-digitalWrite(ckwiseC,LOW);
-
-digitalWrite(c_ckwiseC,HIGH); 
-
-}
-
-else if(dir == 2) //turn left
-
-{
-  
-digitalWrite(ckwiseA,HIGH);
-
-digitalWrite(c_ckwiseA,LOW);
-
-digitalWrite(ckwiseB,HIGH);
-
-digitalWrite(c_ckwiseB,LOW);
-
-digitalWrite(ckwiseC,HIGH);
-
-digitalWrite(c_ckwiseC,LOW);
-
 }
 
 else if(dir == 3) //backward
 
 {
-digitalWrite(ckwiseA,LOW);
+digitalWrite(ckwiseA,HIGH);
 
 digitalWrite(c_ckwiseA,LOW);
 
-digitalWrite(ckwiseB,HIGH);
+digitalWrite(ckwiseB,LOW);
 
-digitalWrite(c_ckwiseB,LOW);
-
-digitalWrite(ckwiseC,LOW);
-
-digitalWrite(c_ckwiseC,HIGH);
+digitalWrite(c_ckwiseB,HIGH);
 
 }
 
@@ -129,10 +103,6 @@ digitalWrite(c_ckwiseA,LOW);
 digitalWrite(ckwiseB,LOW);
 
 digitalWrite(c_ckwiseB,LOW);
-
-digitalWrite(ckwiseC,LOW);
-
-digitalWrite(c_ckwiseC,LOW);
 }
 
 }

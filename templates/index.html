@@ -371,7 +371,55 @@
 </div>
 </span>
             </div>
-            <div class="col-md-4">
+
+        </div>
+    </div><!-- container //  -->
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">결제 확인</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        결제 하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button onclick="close_modal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">결제</button>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="dialog2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">리더기에 카드를 대주세요.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	<img class="card-reader" id="card-reader" src="/static/images/reader.png">
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button onclick="posting()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ========================= SECTION SUB LOGIC ========================= -->
+<div class="col-md-4">
                 <div class="card">
 	<span id="cart">
 <table class="table table-hover shopping-cart-wrap">
@@ -407,53 +455,6 @@
                     </div>
                 </div> <!-- box.// -->
             </div>
-        </div>
-    </div><!-- container //  -->
-</section>
-
-<!-- Modal -->
-<div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">결제 확인</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        결제 하시겠습니까?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button onclick="close()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">결제</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="dialog2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel2">리더기에 카드를 대주세요.</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        	<img class="card-reader" id="card-reader" src="/static/images/reader.png">
-      </div>
-     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button onclick="posting()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog2">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ========================= SECTION SUB LOGIC ========================= -->
-<div class="col-md-6">
     <button onClick="location.href='/'" class="btn btn-primary btn-lg btn-block navyBtn">
         뒤로가기
     </button>
@@ -561,10 +562,12 @@
     	payment(); // 이함수는 menu_ajax.js에 있음
 		 location.href='/';
 	}
-	//modal close 아직 해결 못함.
-	function close() {
+
+	function close_modal() {
 		$('#dialog').modal("hide"); //닫기
+		console.log("함수 실행했니?")
 	}
+
 
 
 

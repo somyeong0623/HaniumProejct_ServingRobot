@@ -62,7 +62,7 @@ def save_table_no():
         'status': "처리중"
     }
     Order.insert_one(doc)
-    return jsonify({'msg': '테이블번호가 저장되었습니다!!', 'o_id': i})
+    return jsonify({ 'o_id': i})
 
 
 # 메뉴화면 연결 확인
@@ -77,11 +77,11 @@ def menu_payment():
     o_id = int(data['o_id_give'])
     total_price=int(data['total_price_give'])
 
-    for i in menu_list:
-        print(i["name"], i["count"])
-
-    print(menu_list)
-    print("o_id: ", o_id)
+    # for i in menu_list:
+    #     print(i["name"], i["count"])
+    #
+    # print(menu_list)
+    # print("o_id: ", o_id)
 
     db.Order.update(
         {"o_id":o_id},
@@ -103,7 +103,30 @@ def kitchen():
 def show_order():
     orders = list(Order.find({}, {'_id': False}))
     print(orders)
-    return jsonify({'msg':'주방포스 연결 완료!','all_orders':orders})
+    return jsonify({'all_orders':orders})
+
+# 상태변경 버튼 눌렀을때 주문내역 상태값 변경
+@app.route('/process', methods=['POST'])
+def status_change():
+    data = request.get_json()
+    o_id = data['o_id_give']
+    print("o_id : ", o_id)
+
+    db.Order.update(
+        {"o_id":o_id},
+        {
+            "$set": {
+                "status": "처리완료"
+            }
+        })
+    return jsonify()
+
+#처리상태 가져오는 api
+# @app.route('/process', methods=['GET'])
+# def show_process():
+#     orders = list(Order.find({}, {'_id': False}))
+#     print(orders)
+#     return jsonify({'msg':'주방포스 연결 완료!','all_orders':orders})
 
 
 if __name__ == '__main__':

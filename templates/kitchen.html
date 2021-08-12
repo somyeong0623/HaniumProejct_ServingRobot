@@ -75,18 +75,35 @@
 
                         console.log(o_id, table_no, menu_list, total_price, status)
                         console.log(menu_list.substr(0, menu_list, length - 1))
-
-                        let temp_html = `    <tr>
+                        let temp_html = ""
+                        if (status == "처리중") {
+                            temp_html = `    <tr>
     <td><input type="checkbox" class="checkthis" /></td>
     <td>${o_id}</td>
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
     <td>${total_price}</td>
     <td class="menu_status">${status}</td>
+
+    <td><p data-placement="top" data-toggle="tooltip" title="process"><button data-status="${status}" data-oid="${o_id}" id="process"  class="btn btn-danger btn-xs" style="color:white" data-title="Delete"  ><span class="glyphicon glyphicon-ok"  ></span></button></p></td>
+<!-- modal보류 : data-toggle="modal" data-target="#modify"-->
+    </tr>`
+                        } else {
+
+                            temp_html = `    <tr>
+    <td><input type="checkbox" class="checkthis" /></td>
+    <td>${o_id}</td>
+    <td>${table_no}</td>
+    <td>${menu_list.substr(0, menu_list.length - 2)}</td>
+    <td>${total_price}</td>
+    <td class="menu_status">${status}</td>
+
     <td><p data-placement="top" data-toggle="tooltip" title="process"><button data-status="${status}" data-oid="${o_id}" id="process"  class="btn btn-success btn-xs" style="color:white" data-title="Delete"  ><span class="glyphicon glyphicon-ok"  ></span></button></p></td>
 <!-- modal보류 : data-toggle="modal" data-target="#modify"-->
     </tr>`
-                        $('#kitchen_list').append(temp_html)
+                        }
+                        $('#kitchen_list').append(temp_html);
+
                     }
                 }
             })
@@ -105,32 +122,6 @@
             // alert("변경했음!")
         })
 
-        //check색깔 바꾸는거
-        //  $(document).on("click", "#process", function () {
-        //      console.log("함수 실행1");
-        //     $('#process').toggle(function(){
-        //         console.log("함수 실행2");
-        //         $("#process").removeClass("btn-danger");
-        //         $("#process").addClass("btn-success")
-        //     }, function(){
-        //         console.log("함수 실행3");
-        //         $("#process").removeClass("btn-success");
-        //         $("#process").addClass("btn-danger");
-        //     });
-        // })
-
-        // function toggleFunction(){
-        //     console.log("함수 실행1");
-        //     $('process').toggle(function(){
-        //         console.log("함수 실행2");
-        //         $("#process").removeClass("btn-danger");
-        //         $("#process").addClass("btn-success")
-        //     }, function(){
-        //         console.log("함수 실행3");
-        //         $("#process").remove("btn-success");
-        //         $("#process").addClass("btn-danger");
-        //     });
-        // }
 
         $(document).on("click", "#process", function () {
             console.log("함수 실행됨!");
@@ -150,12 +141,8 @@
                 }
             })
 
-             location.reload();
+            location.reload();
         })
-
-
-
-
 
 
     </script>

@@ -17,10 +17,14 @@
           id="bootstrap-css">
 
     <script src="/static/js/jquery-2.0.0.min.js" type="text/javascript"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    {#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>#}
 
     <style>
         . {
+
+        }
+
+        body {
             font-family: 'Do Hyeon', sans-serif;
         }
 
@@ -79,7 +83,7 @@
                         let table_no = orders[i]['table_no']
 
                         let menu_length = orders[i]['menu'].length
-                        console.log("length: ", menu_length)
+                        {#console.log("length: ", menu_length)#}
                         // console.log("orders[i].menu: ",orders[i].menu)
                         // console.log("ordrers[i].menu[0].name",orders[i].menu[0].name)
 
@@ -96,8 +100,8 @@
                         let menu = menu_list[i]
                         // menu_list=menu_list.substr(0,menu_list.length-1);
 
-                        console.log(o_id, table_no, menu_list, total_price, status)
-                        console.log(menu_list.substr(0, menu_list, length - 1))
+                        {#console.log(o_id, table_no, menu_list, total_price, status)#}
+                        {#console.log(menu_list.substr(0, menu_list, length - 1))#}
                         let temp_html = ""
                         if (status == "처리중") {
                             temp_html = `    <tr>
@@ -113,7 +117,7 @@
                         } else {
 
                             temp_html = `    <tr>
-    <td><input type="checkbox" class="checkthis" /></td>
+    <td><input type="checkbox" class="checkthis" name="order_checkbox" /></td>
     <td>${o_id}</td>
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
@@ -143,13 +147,13 @@
             // alert("변경했음!")
         })
 
-
+        // 처리상태 변경 함수
         $(document).on("click", "#process", function () {
             console.log("함수 실행됨!");
 
             let o_id = $(this).data('oid');
             let status = $(this).data('status');
-            console.log(o_id, status);
+            {#console.log(o_id, status);#}
 
             var data = JSON.stringify({o_id_give: o_id});
 
@@ -166,13 +170,57 @@
         })
 
 
+        //로봇호출 버튼 누르는 함수
+        // center에 s_id, table_no, sig=0, now_work=1 값 insert
+        function robot_call() {
+
+            {#let tr = $('input[type="checkbox"]:checked').parent().parent()#}
+            {#let td = tr.children()#}
+            {#console.log(tr)#}
+            {#console.log(td)#}
+            console.log("robot_call 함수 호출!")
+            var rowData = new Array();
+            var tdArr = new Array();
+            var checkbox = $("input:checkbox[name='order_checkbox']:checked");
+            console.log(checkbox)
+
+            checkbox.each(function (i) {
+                console.log("each함수 실행")
+                var tr = checkbox.parent().parent().eq(i);
+                var td = tr.children();
+                var td_1 = td.eq(1).text();
+                var td_2 = td.eq(2).text();
+                var td_3 = td.eq(3).text();
+                console.log(td_1, td_2, td_3)
+
+            })
+
+
+            {#$.ajax({#}
+            {#    type: "POST",#}
+            {#    url: "/robot_call",#}
+            {#    contentType: "application/json",#}
+            {#    success: function (response) {#}
+            {#        console.log("robot_call함수 실행!")#}
+            {#        msg = response['msg']#}
+            {#        alert(msg)#}
+            {#    }#}
+
+        }
+
+
+        //서빙준비완료 버튼 누르는 함수
+        //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update
+        //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=1이면  "로봇이 일을 하는중입니다" alert창 뜨이귀
+
     </script>
+
 
 </head>
 <body>
 
 <div class="wrap">
-    <div class="banner">
+    <div class="banner" onClick="window.location.reload()">
     </div>
     <div class="container">
         <div class="row">
@@ -223,7 +271,7 @@
 
                     </table>
                     <div>
-                        <button id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
+                        <button onclick="robot_call()" id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
                         <button id="btn2" class="btn btn-primary" href="#">서빙 준비 완료</button>
                     </div>
 

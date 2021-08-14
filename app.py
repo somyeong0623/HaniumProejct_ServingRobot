@@ -9,6 +9,7 @@ client = MongoClient('localhost', 27017)
 db = client.Serving_Robot
 Order = db.Order
 Kitchen = db.Kitchen
+Center=db.Center
 
 
 def CalNexts_o_id(self):  # self에는 Colection이름이 들어가면 됩니다.
@@ -121,12 +122,15 @@ def status_change():
         })
     return jsonify()
 
-#처리상태 가져오는 api
-# @app.route('/process', methods=['GET'])
-# def show_process():
-#     orders = list(Order.find({}, {'_id': False}))
-#     print(orders)
-#     return jsonify({'msg':'주방포스 연결 완료!','all_orders':orders})
+@app.route('/robot_call', methods=['POST'])
+def robot_call():
+    i=int()
+    i=db.Center.count()+1
+    data = {'s_id': i, 'table_no': 1, 'sig': 0, 'now_work': 1}
+    Center.insert_one(data)
+
+    return jsonify({'msg':'호출정보가 Center에 저장되었습니다!.'})
+
 
 
 if __name__ == '__main__':

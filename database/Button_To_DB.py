@@ -4,14 +4,14 @@ import time
 
 client = MongoClient("mongodb+srv://Berrykind:<password>@cluster0.z7rql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-def CalNexts_id(self) :
-    max = int()
-    max = 0
-    x = self.find().sort("s_id")
-    for i in x:
-        if i['s_id'] > max:
-            max = i['s_id']
-    return max + 1
+# def CalNexts_id(self) :
+#     max = int()
+#     max = 0
+#     x = self.find().sort("s_id")
+#     for i in x:
+#         if i['s_id'] > max:
+#             max = i['s_id']
+#     return max + 1
 
 db = client.get_database('Serving_Robot')
 Center = db.Center
@@ -26,7 +26,7 @@ while True:
         button_state =GPIO.input(18)
         if button_state==False:
             print('Button ON')
-            i = CalNexts_id(Center)
+            i = Center.count()+1
             data={'s_id' : i, 'table_no' : 1, 'sig' : 1, 'now_work' : 1}
             Center.insert_one(data)
             time.sleep(0.2)

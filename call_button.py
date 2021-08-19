@@ -27,17 +27,15 @@ def CalNexts_id(self) :
 # GPIO.setup(18,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 
 i = int()
-i = db.Center.count()+1;
+i = CalNexts_id(Center)
 print(i)
-state=False #버튼 누른상태
+state=True #버튼 누른상태
 #state=False
 
 if state==True:
     i=db.Center.count()+1
     data={'s_id':i, 'table_no':1, 'sig':1, 'now_work':1}
     Center.insert_one(data)
-
-
 
 # while True:
 #     try:

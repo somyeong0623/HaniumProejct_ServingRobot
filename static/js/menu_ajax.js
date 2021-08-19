@@ -30,6 +30,9 @@ var table_no = GetURLParameter('table_number');
 var o_id=GetURLParameter('o_id')
 // var table_no = getUrlVars();
 
+// 결제내역 Order테이블에 삽입
+// table_no에 해당하는 값 Robot table에서 sig 1->0으로 변경
+
 function payment() {
     let list = [];
     $('#menu_list tr').each(function () {

@@ -1,20 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {#     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">#}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>cute</title>
     <style>
         .face {
             text-align: center;
         }
+
+        .smile {
+            position: relative;
+        }
+
+        .btn_menu {
+            font-family: 'Do Hyeon', sans-serif;
+            position: absolute;
+            top: 50px;
+            left: 68%;
+            transform: translateX(-50%);
+            margin-bottom: 40px;
+            width: 10%;
+            height: 80px;
+            background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
+            background-position: left;
+            background-size: 200%;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.4s;
+            display: inline;
+            font-size: 30px;
+            border-radius: 12px;
+        }
     </style>
-    <meta charset="UTF-8">
-    <title>cute</title>
     <script src="/static/js/jquery-2.0.0.min.js" type="text/javascript"></script>
+    <script>
+        function serving_complete() {
+
+            $.ajax({
+                type: "POST",
+                url: "/serving_complete",
+                contentType: "application/json",
+                success: function (response) {
+                    console.log("serving_complete함수 실행!")
+                    msg = response['msg']
+                    alert(msg)
+
+                }
+            })
+
+        }
+    </script>
 
 </head>
 <body>
 <div class="face">
-    <img onclick="location.href='start'" id="cute" src="/static/images/cute.jpg">
+    <img class="smile" onclick="location.href='start'" id="cute" src="/static/images/cute.jpg">
+    <button onclick="serving_complete()" type="button" class="btn_menu">
+        서빙받기 완료!
+    </button>
 </div>
+
 </body>
+
 
 </html>

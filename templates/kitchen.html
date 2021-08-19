@@ -65,19 +65,25 @@
     </style>
     <script>
         $(document).ready(function () {
-            kitchen_listing()
+            kitchen_listing(1)
         })
 
-        function kitchen_listing() {
+        function kitchen_listing(page) {
+            $('.active').removeClass('active');
+            $('#page'+page).addClass('active');
+
+
             $.ajax({
                 type: "GET",
                 url: "/kitchen_pos",
                 data: {},
                 success: function (response) {
+                    console.log("리스팅 /??")
 
                     let orders = response['all_orders']
-                    for (let i = 0; i < orders.length; i++) {
-
+                    $("#kitchen_list").empty();
+                    for (let i = (page - 1) * 10; i < (page - 1) * 10 + 10; i++) {
+                        console.log("for문 ?")
                         let menu_list = ""
                         let o_id = orders[i]['o_id']
                         let table_no = orders[i]['table_no']
@@ -105,7 +111,7 @@
                         let temp_html = ""
                         if (status == "처리중") {
                             temp_html = `    <tr>
-    <td><input type="checkbox" class="checkthis" /></td>
+    <td><input type="checkbox" class="checkthis" name="order_checkbox" /></td>
     <td>${o_id}</td>
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
@@ -174,44 +180,50 @@
         // center에 s_id, table_no, sig=0, now_work=1 값 insert
         function robot_call() {
 
-            {#let tr = $('input[type="checkbox"]:checked').parent().parent()#}
-            {#let td = tr.children()#}
-            {#console.log(tr)#}
-            {#console.log(td)#}
-            console.log("robot_call 함수 호출!")
-            var rowData = new Array();
-            var tdArr = new Array();
             var checkbox = $("input:checkbox[name='order_checkbox']:checked");
-            console.log(checkbox)
-
+            var table_no = 0
             checkbox.each(function (i) {
-                console.log("each함수 실행")
+
                 var tr = checkbox.parent().parent().eq(i);
                 var td = tr.children();
-                var td_1 = td.eq(1).text();
-                var td_2 = td.eq(2).text();
-                var td_3 = td.eq(3).text();
-                console.log(td_1, td_2, td_3)
+                table_no = td.eq(2).text();
 
+                console.log(table_no)
             })
+            var data = JSON.stringify({table_no_give: table_no})
 
-
-            {#$.ajax({#}
-            {#    type: "POST",#}
-            {#    url: "/robot_call",#}
-            {#    contentType: "application/json",#}
-            {#    success: function (response) {#}
-            {#        console.log("robot_call함수 실행!")#}
-            {#        msg = response['msg']#}
-            {#        alert(msg)#}
-            {#    }#}
+            $.ajax({
+                type: "POST",
+                url: "/robot_call",
+                contentType: "application/json",
+                data: data,
+                success: function (response) {
+                    console.log("robot_call함수 실행!")
+                    msg = response['msg']
+                    alert(msg)
+                }
+            })
 
         }
 
 
         //서빙준비완료 버튼 누르는 함수
         //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update
-        //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=1이면  "로봇이 일을 하는중입니다" alert창 뜨이귀
+        //어차피 now_work=1인거 하나고, [로봇호출]버튼 누른 상태니까 sig=0인 상황임.
+        function prepare_complete() {
+            $.ajax({
+                type: "POST",
+                url: "/prepare_complete",
+                contentType: "application/json",
+                success: function (response) {
+                    console.log("prepare_complete함수 실행!")
+                    msg = response['msg']
+                    alert(msg)
+
+                }
+            })
+        }
+
 
     </script>
 
@@ -272,18 +284,19 @@
                     </table>
                     <div>
                         <button onclick="robot_call()" id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
-                        <button id="btn2" class="btn btn-primary" href="#">서빙 준비 완료</button>
+                        <button onclick="prepare_complete()" id="btn2" class="btn btn-primary" href="#">서빙 준비 완료
+                        </button>
                     </div>
 
 
                     <div class="clearfix"></div>
                     <ul class="pagination pull-right">
                         <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
+                        <li id="page1" class="active"><a onclick="kitchen_listing(1)" href="#">1</a></li>
+                        <li id="page2"><a onclick="kitchen_listing(2)" href="#">2</a></li>
+                        <li id="page3"><a onclick="kitchen_listing(3)" href="#">3</a></li>
+                        <li id="page4"><a onclick="kitchen_listing(4)" href="#">4</a></li>
+                        <li id="page5"><a onclick="kitchen_listing(5)" href="#">5</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
                     </ul>
 

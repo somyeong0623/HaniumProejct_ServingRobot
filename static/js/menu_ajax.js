@@ -46,9 +46,7 @@ function payment() {
     let total_price=$('#total_price').text();
     console.log("table_no: "+table_no, "o_id: "+o_id ,"total_price: ",total_price);
     console.log(list);
-
     var data = JSON.stringify({menulist_give: list, o_id_give:o_id, total_price_give:total_price});
-
 
     $.ajax({
         type: "POST",

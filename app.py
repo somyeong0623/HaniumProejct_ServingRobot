@@ -4,8 +4,11 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 
-# client = MongoClient('mongodb://test:test@localhost', 27017)
-client = MongoClient('localhost', 27017)
+#aws 접속용
+client = MongoClient('mongodb://test:test@localhost', 27017)
+# 로컬 접속용
+# client = MongoClient('localhost', 27017)
+
 db = client.Serving_Robot
 Order = db.Order
 Kitchen = db.Kitchen
@@ -105,12 +108,6 @@ def menu_payment():
     menu_list = data['menulist_give']
     o_id = int(data['o_id_give'])
     total_price = int(data['total_price_give'])
-
-    # for i in menu_list:
-    #     print(i["name"], i["count"])
-    #
-    # print(menu_list)
-    # print("o_id: ", o_id)
 
     db.Order.update(
         {"o_id": o_id},

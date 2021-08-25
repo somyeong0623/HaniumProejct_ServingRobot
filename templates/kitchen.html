@@ -179,16 +179,12 @@
         //로봇호출 버튼 누르는 함수
         // center에 s_id, table_no, sig=0, now_work=1 값 insert
         function robot_call() {
-
             var checkbox = $("input:checkbox[name='order_checkbox']:checked");
             var table_no = 0
             checkbox.each(function (i) {
-
                 var tr = checkbox.parent().parent().eq(i);
                 var td = tr.children();
                 table_no = td.eq(2).text();
-
-                console.log(table_no)
             })
             var data = JSON.stringify({table_no_give: table_no})
 

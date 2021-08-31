@@ -17,31 +17,31 @@ c_s_id = int(0)
 
 def TableCommend(table) :
     if table == 1 :
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node -4 5 0"
+        text = "rosrun robot_navigation_client nav_client_node -4 5 0"
         return text
 
     elif table == 2:
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 5 0"
+        text = "rosrun robot_navigation_client nav_client_node 0 5 0"
         return text
 
     elif table == 3:
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 4 5 0"
+        text = "rosrun robot_navigation_client nav_client_node 4 5 0"
         return text
 
     elif table == 4:
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node -7 0 0"
+        text = "rosrun robot_navigation_client nav_client_node -7 0 0"
         return text
 
     elif table == 5:
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 7 0 0"
+        text = "rosrun robot_navigation_client nav_client_node 7 0 0"
         return text
 
     elif table == 6:
-        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 -2 0"
+        text = "rosrun robot_navigation_client nav_client_node 0 -2 0"
         return text
 
 def KitchenCommend():
-    text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 0 0"
+    text = "rosrun robot_navigation_client nav_client_node 0 0 0"
     return text
 
 def GetValue(self, s_id, target) :
@@ -64,7 +64,7 @@ def GoToServing(now_r_s_id) :
             'sig': GetValue(Center, r_s_id, 'sig'), 'now_work': GetValue(Center, r_s_id, 'now_work'),'r_move' : 1 }
     Robot.insert_one(r_data)
 
-    # 추가한 부분
+    '''# 추가한 부분
     commend = TableCommend(GetValue(Robot, r_s_id, 'table_no'))
     process = subprocess.Popen(commend, shell=True, stdout=subprocess.PIPE)
 
@@ -74,7 +74,7 @@ def GoToServing(now_r_s_id) :
 
     process.kill()
     Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
-    # 여기까지
+    # 여기까지'''
 
     while GetValue(Robot, r_s_id, 'sig'):
         print('Order Wait', r_s_id, 's_id DB')
@@ -96,6 +96,9 @@ def GoToServing(now_r_s_id) :
 while True:
     c_s_id = GetValue(Center,r_s_id,'s_id')
 
+    #now_work 0인 데이터 Robot Collection에서 삭제
+    Robot.delete_many({'now_work': 0})
+
     if c_s_id == 0 :
         print('No Data in Collection')
         time.sleep(5)
@@ -108,7 +111,7 @@ while True:
             print('Serving! Serving!! Serving!!!')
             # 식당으로 서빙하러 가기!
 
-            # 추가한 부분
+            '''# 추가한 부분
             commend = TableCommend(GetValue(Robot, r_s_id, 'table_no'))
             process = subprocess.Popen(commend, shell=True, stdout=subprocess.PIPE)
 
@@ -118,7 +121,7 @@ while True:
 
             process.kill()
             Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
-            # 여기까지
+            # 여기까지'''
 
             while GetValue(Robot, r_s_id, 'sig') :
                 print('Order Wait', r_s_id, 's_id DB')
@@ -133,7 +136,7 @@ while True:
                 Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
                 r_s_id = GoToServing(r_s_id)
 
-            # 추가한 부분
+            '''# 추가한 부분
             commend = KitchenCommend()
             process = subprocess.Popen(commend, shell=True, stdout=subprocess.PIPE)
 
@@ -142,8 +145,7 @@ while True:
                 time.sleep(5)
 
             process.kill()
-            Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
-            # 여기까지
+            # 여기까지'''
 
             Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work' : 0}})
             r_s_id += 1
@@ -153,14 +155,13 @@ while True:
             print('Kitchen! Kitchen!! Kitchen!!!')
             # 주방에서 서빙 준비 중!
 
-           # sig=0인동안 주방에 멈춰있음
             while not(GetValue(Robot, r_s_id, 'sig')) :
                 GetValue(Robot, r_s_id, 'sig')
                 print('Serving Ready Wait', r_s_id, 's_id DB')
                 time.sleep(5)
                 # 서빙 준비 대기 중! sig가 1으로 바뀌면 동작
 
-            # 추가한 부분
+            '''# 추가한 부분
             commend = TableCommend(GetValue(Robot, r_s_id, 'table_no'))
             process = subprocess.Popen(commend, shell=True, stdout=subprocess.PIPE)
 
@@ -170,7 +171,7 @@ while True:
 
             process.kill()
             Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
-            # 여기까지
+            # 여기까지'''
 
             while GetValue(Robot, r_s_id, 'sig'):
                 print('Serving Complete Wait', r_s_id, 's_id DB')
@@ -186,7 +187,7 @@ while True:
                 r_s_id = GoToServing(r_s_id)
                 print('if under line', r_s_id)
 
-            # 추가한 부분
+            '''# 추가한 부분
             commend = KitchenCommend()
             process = subprocess.Popen(commend, shell=True, stdout=subprocess.PIPE)
 
@@ -195,10 +196,7 @@ while True:
                 time.sleep(5)
 
             process.kill()
-            Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
-            # 여기까지
+            # 여기까지'''
 
             Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
             r_s_id += 1
-
-

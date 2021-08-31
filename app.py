@@ -5,9 +5,9 @@ app = Flask(__name__)
 from pymongo import MongoClient
 
 # aws 접속용
-# client = MongoClient('mongodb://test:test@localhost', 27017)
+client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
 # 로컬 접속용
-client = MongoClient('localhost', 27017)
+# client = MongoClient('localhost', 27017)
 
 db = client.Serving_Robot
 Order = db.Order
@@ -116,6 +116,13 @@ def menu_payment():
                 "total_price": total_price
             }
         })
+    db.Robot.update_one(
+        {"now_work": 1},
+        {
+            "$set": {
+                "sig": 0
+            }
+        })
     return jsonify()
 
 
@@ -154,19 +161,6 @@ def status_change():
             }
         })
     return jsonify()
-
-# 로봇pos에서 주문 완료 (결제 완료)
-# Robot colleton의 해당 호출건을 sig=0, now_work=0 으로 update.
-@app.route('/order_complete', methods=['POST'])
-def order_complete():
-    db.Robot.update_one(
-        {"now_work": 1},
-        {
-            "$set": {
-                "r_move": 0
-            }
-        })
-    return jsonify({'msg': '로봇이 도착하였습니다'})
 
 
 # 로봇 호출 버튼
@@ -217,22 +211,32 @@ def prepare_complete():
 
     return jsonify({'msg': str(num) + '번 테이블의 주문이 서빙준비가 완료되었습니다'})
 
-
-# face화면 // 서빙받기 완료(로봇 도착) 버튼
-# Robot collection에서 now_work=1인 데이터 now_work=0으로 수정, r_move=0으로 변경
 @app.route('/robot_arrive2', methods=['POST'])
 def robot_arrive2():
     db.Robot.update_one(
         {"now_work": 1},
         {
             "$set": {
-                "sig": 0,
-                "now_work": 0,
                 "r_move": 0
             }
         })
 
     return jsonify({'msg': "로봇이 도착하였습니다. "})
+
+
+# face화면 // 서빙받기 완료 버튼 ( 누르면 로봇이 주방으로 돌아감.)
+# Robot collection에서 now_work=1인 데이터 now_work=0으로 수정, sig=0으로 변경
+@app.route('/serving_complete', methods=['POST'])
+def serving_complete():
+    db.Robot.update_one(
+        {"now_work": 1},
+        {
+            "$set": {
+                "sig": 0
+            }
+        })
+
+    return jsonify({'msg': "서빙이 완료되었습니다. "})
 
 
 if __name__ == '__main__':

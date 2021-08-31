@@ -34,6 +34,7 @@ var o_id=GetURLParameter('o_id')
 // table_no에 해당하는 값 Robot table에서 sig 1->0으로 변경
 
 function payment() {
+    console.log("payment() 함수 실행!!!")
     let list = [];
     $('#menu_list tr').each(function () {
         var tr = $(this);

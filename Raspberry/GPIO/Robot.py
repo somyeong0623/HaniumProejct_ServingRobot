@@ -153,6 +153,7 @@ while True:
             print('Kitchen! Kitchen!! Kitchen!!!')
             # 주방에서 서빙 준비 중!
 
+           # sig=0인동안 주방에 멈춰있음
             while not(GetValue(Robot, r_s_id, 'sig')) :
                 GetValue(Robot, r_s_id, 'sig')
                 print('Serving Ready Wait', r_s_id, 's_id DB')

@@ -36,8 +36,13 @@
             text-aling: center;
         }
 
-        #btn1 #btn2 {
-            margin-right: 8px;
+        #btn1 {
+            margin-right: 12px;
+            margin-left: 100px;
+        }
+
+        #btn3 {
+            margin-right: 16px;
         }
 
         .wrap {
@@ -62,7 +67,32 @@
             cursor: pointer;
         }
 
-    </style>
+        .robot_arrive {
+            font-family: 'Do Hyeon', sans-serif;
+            position: absolute;
+            top: 220px;
+            left: 4%;
+            transform: translateX(-50%);
+            /* margin-bottom: 40px; */
+            /* width: 10%; */
+            /* height: 80px; */
+            background: linear-gradient(
+                    125deg, #81ecec, #6c5ce7, #81ecec);
+            /* background-position: left; */
+            /* background-size: 200%; */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.4s;
+            display: inline;
+            font-size: 30px;
+            border-radius: 12px;
+
+        /* margin-right: 12px;
+            }
+
+
+</style>
     <script>
         $(document).ready(function () {
             kitchen_listing(1)
@@ -317,8 +347,8 @@
 
                     </table>
                     <div>
+                        <button onclick="robot_arrive()" id="btn2" class="robot_arrive" href="#">로봇 도착</button>
                         <button onclick="robot_call()" id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
-                        <button onclick="robot_arrive()" id="btn2" class="btn btn-primary" href="#">로봇 도착</button>
                         <button onclick="prepare_complete()" id="btn3" class="btn btn-primary" href="#">서빙 준비 완료
                         </button>
                     </div>

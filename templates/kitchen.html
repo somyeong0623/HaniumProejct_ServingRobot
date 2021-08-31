@@ -36,7 +36,7 @@
             text-aling: center;
         }
 
-        #btn1 {
+        #btn1 #btn2 {
             margin-right: 8px;
         }
 
@@ -70,7 +70,7 @@
 
         function kitchen_listing(page) {
             $('.active').removeClass('active');
-            $('#page'+page).addClass('active');
+            $('#page' + page).addClass('active');
 
 
             $.ajax({
@@ -174,7 +174,27 @@
 
             location.reload();
         })
+        // 처리상태 변경 함수
+        $(document).on("click", "#process", function () {
+            console.log("함수 실행됨!");
 
+            let o_id = $(this).data('oid');
+            let status = $(this).data('status');
+            {#console.log(o_id, status);#}
+
+            var data = JSON.stringify({o_id_give: o_id});
+
+            $.ajax({
+                type: "POST",
+                url: "/process",
+                contentType: "application/json",
+                data: data,
+                success: function (response) {
+                }
+            })
+
+            location.reload();
+        })
 
         //로봇호출 버튼 누르는 함수
         // center에 s_id, table_no, sig=0, now_work=1 값 insert
@@ -197,6 +217,24 @@
                     console.log("robot_call함수 실행!")
                     msg = response['msg']
                     alert(msg)
+                }
+            })
+
+        }
+
+        //로봇도착 버튼 누르는 함수
+        // robot에 now_work=1인 쿼리에 r_mvoe=0 변경
+        function robot_arrive() {
+            console.log("robot_arrive함수 실행")
+
+            $.ajax({
+                type: "POST",
+                url: "/robot_arrive",
+                success: function (response) {
+                    console.log("robot_arrvie함수 실행!")
+                    msg = response['msg']
+                    alert(msg)
+
                 }
             })
 
@@ -280,7 +318,8 @@
                     </table>
                     <div>
                         <button onclick="robot_call()" id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
-                        <button onclick="prepare_complete()" id="btn2" class="btn btn-primary" href="#">서빙 준비 완료
+                        <button onclick="robot_arrive()" id="btn2" class="btn btn-primary" href="#">로봇 도착</button>
+                        <button onclick="prepare_complete()" id="btn3" class="btn btn-primary" href="#">서빙 준비 완료
                         </button>
                     </div>
 

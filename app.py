@@ -4,10 +4,10 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 
-#aws 접속용
-client = MongoClient('mongodb://test:test@localhost', 27017)
+# aws 접속용
+# client = MongoClient('mongodb://test:test@localhost', 27017)
 # 로컬 접속용
-# client = MongoClient('localhost', 27017)
+client = MongoClient('localhost', 27017)
 
 db = client.Serving_Robot
 Order = db.Order
@@ -108,7 +108,6 @@ def menu_payment():
     menu_list = data['menulist_give']
     o_id = int(data['o_id_give'])
     total_price = int(data['total_price_give'])
-
     db.Order.update(
         {"o_id": o_id},
         {
@@ -156,52 +155,85 @@ def status_change():
         })
     return jsonify()
 
+# 로봇pos에서 주문 완료 (결제 완료)
+# Robot colleton의 해당 호출건을 sig=0, now_work=0 으로 update.
+@app.route('/order_complete', methods=['POST'])
+def order_complete():
+    db.Robot.update_one(
+        {"now_work": 1},
+        {
+            "$set": {
+                "r_move": 0
+            }
+        })
+    return jsonify({'msg': '로봇이 도착하였습니다'})
+
 
 # 로봇 호출 버튼
 @app.route('/robot_call', methods=['POST'])
 def robot_call():
     data = request.get_json()
     table_no_receive = data['table_no_give']
+    table_int = int(table_no_receive)
+    print(table_int)
     i = int()
     i = CalNexts_s_id(Center)
-    data = {'s_id': i, 'table_no': table_no_receive, 'sig': 0, 'now_work': 1}
+    data = {'s_id': i, 'table_no': table_int, 'sig': 0, 'now_work': 1}
     Center.insert_one(data)
 
     return jsonify({'msg': '호출정보가 Center에 저장되었습니다!.'})
 
 
+# 로봇 도착 버튼
+# Robot collection에서 now_work 1인 쿼리의 r_move=0으로 변경
+@app.route('/robot_arrive', methods=['POST'])
+def robot_arrive():
+    db.Robot.update_one(
+        {"now_work": 1},
+        {
+            "$set": {
+                "r_move": 0
+            }
+        })
+    return jsonify({'msg': '로봇이 도착하였습니다'})
+
+
 # 서빙준비완료 버튼
-#  //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update
+#  //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update, r_move=1로 update
 # 로봇호출할때는 checkbox 체크해야되고, [로봇호출]누르고 나서 바로 [서빙준비완료] 버튼 눌러야함.
 @app.route('/prepare_complete', methods=['POST'])
 def prepare_complete():
     check = int()
     num = GetValue(Robot, 1, 'table_no')
 
-    db.Robot.update(
+    db.Robot.update_one(
         {"now_work": 1},
         {
             "$set": {
-                "sig": 1
+                "sig": 1,
+                "r_move": 1
             }
         })
 
     return jsonify({'msg': str(num) + '번 테이블의 주문이 서빙준비가 완료되었습니다'})
 
 
-# face화면 // 서빙받기 완료 버튼
-# Robot collection에서 now_work=1인 데이터 now_work=0으로 수정
-@app.route('/serving_complete', methods=['POST'])
-def serving_complete():
-    db.Robot.update(
+# face화면 // 서빙받기 완료(로봇 도착) 버튼
+# Robot collection에서 now_work=1인 데이터 now_work=0으로 수정, r_move=0으로 변경
+@app.route('/robot_arrive2', methods=['POST'])
+def robot_arrive2():
+    db.Robot.update_one(
         {"now_work": 1},
         {
             "$set": {
-                "now_work": 0
+                "sig": 0,
+                "now_work": 0,
+                "r_move": 0
             }
         })
 
-    return jsonify({'msg': "서빙이 완료되었습니다. "})
+    return jsonify({'msg': "로봇이 도착하였습니다. "})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

@@ -4,8 +4,8 @@ from pymongo import MongoClient
 import time
 import subprocess
 
-client = MongoClient("mongodb+srv://Berrykind:<password>@cluster0.z7rql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-
+client = MongoClient("mongodb+srv://Berrykind:poseidon@cluster0.z7rql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+# client = MongoClient('mongodb://test:test@13.125.65.160',27017)
 
 db = client.get_database('Serving_Robot')
 
@@ -17,31 +17,31 @@ c_s_id = int(0)
 
 def TableCommend(table) :
     if table == 1 :
-        text = "rosrun robot_navigation_client nav_client_node -4 5 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node -4 5 0"
         return text
 
     elif table == 2:
-        text = "rosrun robot_navigation_client nav_client_node 0 5 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 5 0"
         return text
 
     elif table == 3:
-        text = "rosrun robot_navigation_client nav_client_node 4 5 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 4 5 0"
         return text
 
     elif table == 4:
-        text = "rosrun robot_navigation_client nav_client_node -7 0 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node -7 0 0"
         return text
 
     elif table == 5:
-        text = "rosrun robot_navigation_client nav_client_node 7 0 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 7 0 0"
         return text
 
     elif table == 6:
-        text = "rosrun robot_navigation_client nav_client_node 0 -2 0"
+        text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 -2 0"
         return text
 
 def KitchenCommend():
-    text = "rosrun robot_navigation_client nav_client_node 0 0 0"
+    text = "rosrun mobile_manipulator_robot_navigation_client nav_client_node 0 0 0"
     return text
 
 def GetValue(self, s_id, target) :
@@ -96,9 +96,6 @@ def GoToServing(now_r_s_id) :
 while True:
     c_s_id = GetValue(Center,r_s_id,'s_id')
 
-    #now_work 0인 데이터 Robot Collection에서 삭제
-    Robot.delete_many({'now_work': 0})
-
     if c_s_id == 0 :
         print('No Data in Collection')
         time.sleep(5)
@@ -145,6 +142,7 @@ while True:
                 time.sleep(5)
 
             process.kill()
+            Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
             # 여기까지
 
             Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work' : 0}})
@@ -196,7 +194,10 @@ while True:
                 time.sleep(5)
 
             process.kill()
+            Robot.update_one({'s_id': r_s_id}, {'$set': {'r_move': 1}})
             # 여기까지
 
             Robot.update_one({'s_id': r_s_id}, {'$set': {'now_work': 0}})
             r_s_id += 1
+
+

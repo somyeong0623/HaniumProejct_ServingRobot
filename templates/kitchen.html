@@ -9,6 +9,8 @@
             crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
+    {#    <META HTTP-EQUIV="refresh" CONTENT="5">#}
+    {#5초마다 페이지 새로고침#}
     <title>Kitchen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,11 +26,19 @@
 
         }
 
+        space {
+            width: 20px;
+        }
+
         body {
             font-family: 'Do Hyeon', sans-serif;
         }
 
         th, thead {
+            text-align: center;
+        }
+
+        td {
             text-align: center;
         }
 
@@ -38,12 +48,13 @@
 
         #btn1 {
             margin-right: 12px;
-            margin-left: 100px;
+
         }
 
         #btn3 {
             margin-right: 16px;
         }
+
 
         .wrap {
             /*background-color: RGBA(232, 52, 78, 0.2);*/
@@ -141,7 +152,7 @@
                         let temp_html = ""
                         if (status == "처리중") {
                             temp_html = `    <tr>
-    <td><input type="checkbox" class="checkthis" name="order_checkbox" /></td>
+    <td><input type="radio" class="checkthis" name="order_checkbox" /></td>
     <td>${o_id}</td>
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
@@ -153,7 +164,7 @@
                         } else {
 
                             temp_html = `    <tr>
-    <td><input type="checkbox" class="checkthis" name="order_checkbox" /></td>
+    <td><input type="radio" class="checkthis" name="order_checkbox" /></td>
     <td>${o_id}</td>
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
@@ -229,13 +240,15 @@
         //로봇호출 버튼 누르는 함수
         // center에 s_id, table_no, sig=0, now_work=1 값 insert
         function robot_call() {
-            var checkbox = $("input:checkbox[name='order_checkbox']:checked");
+            var checkbox = $("input:radio[name='order_checkbox']:checked");
             var table_no = 0
             checkbox.each(function (i) {
                 var tr = checkbox.parent().parent().eq(i);
                 var td = tr.children();
                 table_no = td.eq(2).text();
             })
+            console.log("robot_call 함수 실행")
+            console.log(table_no)
             var data = JSON.stringify({table_no_give: table_no})
 
             $.ajax({
@@ -244,27 +257,9 @@
                 contentType: "application/json",
                 data: data,
                 success: function (response) {
-                    console.log("robot_call함수 실행!")
+
                     msg = response['msg']
                     alert(msg)
-                }
-            })
-
-        }
-
-        //로봇도착 버튼 누르는 함수
-        // robot에 now_work=1인 쿼리에 r_mvoe=0 변경
-        function robot_arrive() {
-            console.log("robot_arrive함수 실행")
-
-            $.ajax({
-                type: "POST",
-                url: "/robot_arrive",
-                success: function (response) {
-                    console.log("robot_arrvie함수 실행!")
-                    msg = response['msg']
-                    alert(msg)
-
                 }
             })
 
@@ -275,17 +270,48 @@
         //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update
         //어차피 now_work=1인거 하나고, [로봇호출]버튼 누른 상태니까 sig=0인 상황임.
         function prepare_complete() {
+
+            var checkbox = $("input:radio[name='order_checkbox']:checked");
+            var order_no = 0
+            checkbox.each(function (i) {
+                var tr = checkbox.parent().parent().eq(i);
+                var td = tr.children();
+                order_no = td.eq(1).text();
+            })
+
+            console.log("prepare-complete 함수 실행!")
+            console.log(order_no)
+            var data = JSON.stringify({order_no_give: order_no})
+
             $.ajax({
                 type: "POST",
                 url: "/prepare_complete",
                 contentType: "application/json",
+                data: data,
                 success: function (response) {
-                    console.log("prepare_complete함수 실행!")
+
                     msg = response['msg']
                     alert(msg)
 
                 }
             })
+            window.location.reload()
+        }
+
+        function delete_data() {
+            console.log("delete_data() 함수 실행!")
+            $.ajax({
+                type: "POST",
+                url: "/delete_data",
+                contentType: "application/json",
+                success: function (response) {
+                    msg = response['msg']
+                    alert(msg)
+
+                }
+            })
+            setTimeout(function(){   window.location.reload()}, 1000);
+
         }
 
 
@@ -301,7 +327,6 @@
     <div class="container">
         <div class="row">
 
-
             <div class="col-md-12">
                 <br>
 
@@ -311,20 +336,20 @@
                     <table id="mytable" class="table table-bordred table-striped">
 
                         <thead>
-
-                        <th><input type="checkbox" id="checkall"/></th>
+                        <th class="space"></th>
                         <th>주문번호</th>
                         <th>테이블 번호</th>
                         <th>주문 메뉴</th>
                         <th>총 가격</th>
-                        <th>상태</th>
-                        <th>상태 변경</th>
+                        <th>주문 일자</th>
+                        <th>처리 상태</th>
                         </thead>
                         <tbody id="kitchen_list">
 
                         <!--                    <tr>-->
                         <!--                        <td><input type="checkbox" class="checkthis"/></td>-->
                         <!--                        <td>Mohsin</td>-->
+                        <!--                        <td>Irshad</td>-->
                         <!--                        <td>Irshad</td>-->
                         <!--                        <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>-->
                         <!--                        <td>isometric.mohsin@gmail.com</td>-->
@@ -347,10 +372,13 @@
 
                     </table>
                     <div>
-                        <button onclick="robot_arrive()" id="btn2" class="robot_arrive" href="#">로봇 도착</button>
+                        {#                        <button onclick="robot_arrive()" id="btn2" class="robot_arrive" href="#">로봇 도착</button>#}
                         <button onclick="robot_call()" id="btn1" class="btn btn-primary" href="#">로봇 호출</button>
                         <button onclick="prepare_complete()" id="btn3" class="btn btn-primary" href="#">서빙 준비 완료
                         </button>
+                        <button onclick="delete_data()" id="btn4" class="btn btn-primary" href="#">데이터 삭제
+                        </button>
+
                     </div>
 
 

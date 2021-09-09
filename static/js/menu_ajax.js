@@ -40,9 +40,54 @@ function payment() {
         var tr = $(this);
         var td = tr.children();
         let menu_name = td.find('.menu_name').text();
+        menu_name=menu_name.replace(" ","")
+        let menu_id=0;
+        if(menu_name=="전주비빔밥") {
+            menu_id =0;
+        }else if(menu_name=="뚝배기불고기"){
+            menu_id=1;
+        }else if(menu_name=="김치찌개"){
+            menu_id=2;
+        }else if(menu_name=="된장찌개"){
+            menu_id=3;
+        }else if(menu_name=="짜장면"){
+            menu_id=4;
+        }else if(menu_name=="짬뽕"){
+            menu_id=5;
+        }else if(menu_name=="탕수육"){
+            menu_id=6;
+        }
+        else if(menu_name=="볶음밥"){
+            menu_id=7;
+        }
+        else if(menu_name=="토마토파스타"){
+            menu_id=8;
+        }
+        else if(menu_name=="함박스테이크"){
+            menu_id=9;
+        }
+        else if(menu_name=="오므라이스"){
+            menu_id=10;
+        }else if(menu_name=="페퍼로니피자"){
+            menu_id=11;
+        }else if(menu_name=="등심돈까스"){
+            menu_id=12;
+        }else if(menu_name=="오코노미야끼"){
+            menu_id=13;
+        }else if(menu_name=="가츠동"){
+            menu_id=14;
+        }
+        else if(menu_name=="모듬초밥(10p)"){
+            menu_id=15;
+        }
+
+
+
+
+
         let menu_count = td.find('.menu_count').text();
-        // console.log(menu_name, menu_count);
-        list.push({"name": menu_name,"count": menu_count});
+        console.log(menu_id,menu_name, menu_count);
+        list.push({"id": menu_id,"name": menu_name,"count": menu_count});
     });
     let total_price=$('#total_price').text();
     console.log("table_no: "+table_no, "o_id: "+o_id ,"total_price: ",total_price);

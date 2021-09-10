@@ -249,20 +249,24 @@
             })
             console.log("robot_call 함수 실행")
             console.log(table_no)
-            var data = JSON.stringify({table_no_give: table_no})
+            if (table_no == 0) {
+                alert("해당 주문을 선택해주세요.")
+            } else {
+                var data = JSON.stringify({table_no_give: table_no})
 
-            $.ajax({
-                type: "POST",
-                url: "/robot_call",
-                contentType: "application/json",
-                data: data,
-                success: function (response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/robot_call",
+                    contentType: "application/json",
+                    data: data,
+                    success: function (response) {
 
-                    msg = response['msg']
-                    alert(msg)
-                }
-            })
+                        msg = response['msg']
+                        alert(msg)
+                    }
+                })
 
+            }
         }
 
 

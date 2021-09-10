@@ -6,9 +6,9 @@ from pymongo import MongoClient
 import datetime
 
 # aws 접속용
-# client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
+client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
 # 로컬 접속용
-client = MongoClient('localhost', 27017)
+# client = MongoClient('localhost', 27017)
 
 db = client.Serving_Robot
 Order = db.Order

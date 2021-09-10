@@ -1,6 +1,7 @@
 //각각의 메뉴 에서 [추가버튼]을 눌렀을때, 장바구니에 해당 메뉴의 사진,이름,수량,가격이 html코드로 삽입되는 코드 구현
 
 let total_price=0;
+
 let kcount1=0;
 
 let kprice1=0;

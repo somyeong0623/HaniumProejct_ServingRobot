@@ -144,6 +144,7 @@
 
                         let total_price = orders[i]['total_price']
                         let status = orders[i]['status']
+                        let date=orders[i]['date']
                         let menu = menu_list[i]
                         // menu_list=menu_list.substr(0,menu_list.length-1);
 
@@ -157,7 +158,7 @@
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
     <td>${total_price}</td>
-    <td class="menu_status">${status}</td>
+    <td class="menu_status">${date}</td>
 
     <td><p data-placement="top" data-toggle="tooltip" title="process"><button data-status="${status}" data-oid="${o_id}" id="process"  class="btn btn-danger btn-xs" style="color:white" data-title="Delete"  ><span class="glyphicon glyphicon-ok"  ></span></button></p></td>
     </tr>`
@@ -169,7 +170,7 @@
     <td>${table_no}</td>
     <td>${menu_list.substr(0, menu_list.length - 2)}</td>
     <td>${total_price}</td>
-    <td class="menu_status">${status}</td>
+    <td class="menu_status">${date}</td>
 
     <td><p data-placement="top" data-toggle="tooltip" title="process"><button data-status="${status}" data-oid="${o_id}" id="process"  class="btn btn-success btn-xs" style="color:white" data-title="Delete"  ><span class="glyphicon glyphicon-ok"  ></span></button></p></td>
     </tr>`
@@ -242,17 +243,19 @@
         function robot_call() {
             var checkbox = $("input:radio[name='order_checkbox']:checked");
             var table_no = 0
+            var o_id=0
             checkbox.each(function (i) {
                 var tr = checkbox.parent().parent().eq(i);
                 var td = tr.children();
                 table_no = td.eq(2).text();
+                o_id=td.eq(1).text();
             })
             console.log("robot_call 함수 실행")
             console.log(table_no)
             if (table_no == 0) {
                 alert("해당 주문을 선택해주세요.")
             } else {
-                var data = JSON.stringify({table_no_give: table_no})
+                var data = JSON.stringify({table_no_give: table_no,o_id_give:o_id})
 
                 $.ajax({
                     type: "POST",
@@ -267,6 +270,7 @@
                 })
 
             }
+             location.reload();
         }
 
 
@@ -326,7 +330,7 @@
 <body>
 
 <div class="wrap">
-    <div class="banner" onClick="window.location.reload()">
+    <div class="banner" onClick="location.href='info'">
     </div>
     <div class="container">
         <div class="row">

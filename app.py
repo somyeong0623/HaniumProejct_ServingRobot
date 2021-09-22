@@ -6,9 +6,9 @@ from pymongo import MongoClient
 import datetime
 
 # aws 접속용
-client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
+# client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
 # 로컬 접속용
-# client = MongoClient('localhost', 27017)
+client = MongoClient('localhost', 27017)
 
 db = client.Serving_Robot
 Order = db.Order
@@ -16,8 +16,8 @@ Kitchen = db.Kitchen
 Center = db.Center
 Robot = db.Robot
 MenuList = db.MenuList
-MenuList_max=db.MenuList_max
-MenuList_min=db.MenuList_min
+MenuList_max = db.MenuList_max
+MenuList_min = db.MenuList_min
 
 dic_name = {0: "전주비빔밥", 1: "뚝배기불고기", 2: "김치찌개", 3: "된장찌개",
             4: "짜장면", 5: "짬뽕", 6: "탕수육", 7: "볶음밥",
@@ -35,7 +35,6 @@ dic_total_price = {0: 0, 1: 0, 2: 0, 3: 0,
                    4: 0, 5: 0, 6: 0, 7: 0,
                    8: 0, 9: 0, 10: 0, 11: 0,
                    12: 0, 13: 0, 14: 0, 15: 0}
-
 
 
 def CalNexts_o_id(self):  # self에는 Colection이름이 들어가면 됩니다.
@@ -63,10 +62,23 @@ def GetValue(self, now_work, target):  # self에는 Collection, s_id에는 확�
     results = int()
 
     temp = self.find({'now_work': now_work})
-
     for j in temp:
         results = j[target]
         # 여기서 for문 인 이유 ??
+
+    if results == 0:
+        return 0
+    else:
+        return results
+
+
+def GetValue2(self, o_id, target):  # self에는 Collection, s_id에는 확인하고 싶은 s_id, target은 추출하고 싶은 데이터이름
+    temp = self.find({'o_id': o_id})
+    results = str()
+
+    for j in temp:
+        results = j[target]
+        print("results:",results)
 
     if results == 0:
         return 0
@@ -137,7 +149,7 @@ def menu_payment():
             "$set": {
                 "menu": menu_list,
                 "total_price": total_price,
-                "date":  now
+                "date": now
             }
         })
     db.Robot.update_one(
@@ -184,10 +196,10 @@ def show_info():
     menu_min = list(MenuList_min.find({}, {'_id': False}))
 
     print(menu)
-    return jsonify({'all_menu': menu, 'menu_max':menu_max, 'menu_min':menu_min})
+    return jsonify({'all_menu': menu, 'menu_max': menu_max, 'menu_min': menu_min})
 
 
-def CountMenu(collection,):
+def CountMenu(collection, ):
     dic_count = {0: 0, 1: 0, 2: 0, 3: 0,
                  4: 0, 5: 0, 6: 0, 7: 0,
                  8: 0, 9: 0, 10: 0, 11: 0,
@@ -258,7 +270,6 @@ def CountMenu(collection,):
             MenuList_min.insert(doc)
 
 
-
 # info 페이지로 넘어갈때 MenuList collection 생성하는 api
 @app.route('/info_insert', methods=['POST'])
 def info_insert():
@@ -267,7 +278,7 @@ def info_insert():
     db.MenuList_min.drop()
     CountMenu(Order)
     print("dic_count: ", dic_count)
-    print("dic_total_price: ",dic_total_price)
+    print("dic_total_price: ", dic_total_price)
 
     return jsonify()
 
@@ -294,6 +305,12 @@ def status_change():
 def robot_call():
     data = request.get_json()
     table_no_receive = data['table_no_give']
+    o_id_receive = data['o_id_give']
+    print("o_id_receive:",o_id_receive)
+
+    status = GetValue2(Order, o_id_receive, "status")
+    print("status:", status)
+
     table_int = int(table_no_receive)
     print(table_int)
     i = int()
@@ -304,7 +321,6 @@ def robot_call():
     return jsonify({'msg': '호출정보가 Center에 저장되었습니다!.'})
 
 
-
 # 서빙준비완료 버튼
 #  //robot(collection)에서 now_work=1인 쿼리중 맨위 데이터의 sig=0이면  sig=1로 update, r_move=1로 update
 # 로봇호출할때는 checkbox 체크해야되고, [로봇호출]누르고 나서 바로 [서빙준비완료] 버튼 눌러야함.
@@ -312,6 +328,7 @@ def robot_call():
 def prepare_complete():
     check = int()
     table_no = GetValue(Robot, 1, 'table_no')
+    print("table_no : ",table_no)
 
     data = request.get_json()
     order_no_receive = int(data['order_no_give'])
@@ -334,7 +351,8 @@ def prepare_complete():
             }
         })
 
-    return jsonify({'msg': str(table_no) + '번 테이블의 주문이 서빙준비가 완료되었습니다'})
+    return jsonify({'msg': str(table_no) + '번 테이블 주문의 서빙준비가 완료되었습니다'})
+
 
 # 데이터 삭제 버튼
 @app.route('/delete_data', methods=['POST'])
@@ -342,6 +360,9 @@ def delete_data():
     Order.drop()
     Robot.drop()
     Center.drop()
+    MenuList.drop()
+    MenuList_max.drop()
+    MenuList_min.drop()
 
     return jsonify({'msg': '데이터가 전부 삭제되었습니다.'})
 
@@ -350,15 +371,22 @@ def delete_data():
 # Robot collection에서 now_work=1인 데이터 now_work=0으로 수정, sig=0으로 변경
 @app.route('/serving_complete', methods=['POST'])
 def serving_complete():
-    db.Robot.update_one(
-        {"now_work": 1},
-        {
-            "$set": {
-                "sig": 0
-            }
-        })
-
-    return jsonify({'msg': "서빙이 완료되었습니다. "})
+    s_id = GetValue(Robot, 1, 's_id')
+    print("s_id:", s_id)
+    if s_id == 0:
+        msg = "도착 정보가 없습니다."
+    else:
+        db.Robot.update_one(
+            {"now_work": 1},
+            {
+                "$set": {
+                    "sig": 0,
+                    "now_work": 0
+                }
+            })
+        msg = "서빙이 완료되었습니다."
+    print(msg)
+    return jsonify({'msg': msg})
 
 
 if __name__ == '__main__':

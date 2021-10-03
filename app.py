@@ -71,7 +71,7 @@ def GetValue(self, now_work, target):  # self에는 Collection, s_id에는 확�
         return 0
     else:
         return results
-
+#
 
 def GetValue2(self, o_id, target):  # self에는 Collection, s_id에는 확인하고 싶은 s_id, target은 추출하고 싶은 데이터이름
     temp = self.find({'o_id': o_id})

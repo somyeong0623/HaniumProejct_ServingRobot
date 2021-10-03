@@ -24,9 +24,9 @@
 
         }
 
-        #mytable_max,#mytable_min  {
+        #mytable_max, #mytable_min {
             margin-top: 40px;
-            width:450px;
+            width: 450px;
             margin-left: auto;
 
         }
@@ -115,11 +115,11 @@
         function info_insert() {
             console.log("info_insert() 함수 실행!")
 
-
             $.ajax({
                 type: "POST",
                 url: "/info_insert",
                 contentType: "application/json",
+                async: false,
                 success: function (response) {
                     console.log("데이터를 불러왓음!")
 
@@ -133,7 +133,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/info_pos",
+                url: "/show_info",
                 data: {},
                 success: function (response) {
                     console.log("info 리스팅 됨!")

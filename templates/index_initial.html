@@ -12,6 +12,8 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/manifest.json">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Bootstrap-ecommerce by Vosidiy">
@@ -243,7 +245,7 @@
     <!--        <div class="passForm">-->
     <!--            <input id="phone_number" class="phone_num trigger2" placeholder="전화번호 입력">-->
     <!--        </div>-->
-    <button onclick="initial_posting()"  type="button" class="btn_menu" >
+    <button onclick="initial_posting()" type="button" class="btn_menu">
         메뉴 고르러가기!
     </button>
     <!--        {#        <script>#}-->
@@ -467,18 +469,18 @@
     }
 
     function initial_posting() {
-        let table_no=$('#table_number').val()
+        let table_no = $('#table_number').val()
         // var o_id=0
-        console.log("table number: ",table_no)
+        console.log("table number: ", table_no)
 
         $.ajax({
             type: "POST",
             url: "/initial",
-            data: {table_no_give:table_no},
+            data: {table_no_give: table_no},
             success: function (response) {
-                msg=response['msg']
-                o_id=response['o_id']
-                location.href='pos?table_number='+table_no+'&o_id='+o_id;
+                msg = response['msg']
+                o_id = response['o_id']
+                location.href = 'pos?table_number=' + table_no + '&o_id=' + o_id;
 
             }
         })

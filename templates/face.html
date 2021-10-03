@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {#     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">#}
@@ -13,13 +15,26 @@
         body {
             background-color: black;
         }
+
         .face {
+            display:block;
             text-align: center;
+            margin-left: auto; margin-right: auto;
+
+            line-height:30em;
         }
 
         .smile {
-            position: relative;
-
+            position:absolute;
+            max-width:100%;
+            max-height:100%;
+            width:auto;
+            height:auto;
+            margin:auto;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
         }
 
         .btn_menu1 {
@@ -29,7 +44,7 @@
             left: 68%;
             transform: translateX(-50%);
             margin-bottom: 40px;
-            width: 10%;
+            width: 20%;
             height: 80px;
             background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
             background-position: left;
@@ -66,12 +81,12 @@
 
 </head>
 <body>
-<div class="face">
-    <img class="smile" onclick="location.href='start'" id="cute" src="/static/images/smile.jpg">
-    <button onclick="serving_complete()" type="button" class="btn_menu1" >
+
+    <img class="smile" onclick="location.href='pos'" id="cute" src="/static/images/yellow.png">
+    <button onclick="serving_complete()" type="button" class="btn_menu1">
         서빙받기 완료
     </button>
-</div>
+
 
 </body>
 

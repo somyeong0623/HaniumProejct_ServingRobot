@@ -192,6 +192,7 @@ while True:
             while process.poll() in None:
                 print("Moving")
 
+
             print("Finish Moving")
             # 여기까지
 

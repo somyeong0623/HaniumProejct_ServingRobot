@@ -6,9 +6,9 @@ from pymongo import MongoClient
 import datetime
 
 # aws 접속용
-# client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
+client = MongoClient('mongodb://test:test@13.125.65.160', 27017)
 # 로컬 접속용
-client = MongoClient('localhost', 27017)
+# client = MongoClient('localhost', 27017)
 
 db = client.Serving_Robot
 Order = db.Order
@@ -62,9 +62,10 @@ def GetValue(self, now_work, target):  # self에는 Collection, s_id에는 확�
     results = int()
 
     temp = self.find({'now_work': now_work})
+    print("temp:",temp)
     for j in temp:
         results = j[target]
-        # 여기서 for문 인 이유 ??
+        print("results:",results)
 
     if results == 0:
         return 0
@@ -74,16 +75,16 @@ def GetValue(self, now_work, target):  # self에는 Collection, s_id에는 확�
 
 def GetValue2(self, o_id, target):  # self에는 Collection, s_id에는 확인하고 싶은 s_id, target은 추출하고 싶은 데이터이름
     temp = self.find({'o_id': o_id})
-    results = str()
-
+    results2 = int()
+    print("temp:", temp)
     for j in temp:
-        results = j[target]
-        print("results:",results)
+        results2 = j[target]
+        print("results2:",results2)
 
-    if results == 0:
+    if results2 == 0:
         return 0
     else:
-        return results
+        return results2
 
 
 # 초기화면 보여주기
@@ -110,24 +111,23 @@ def show_initial():
 
 
 # 초기화면 : 테이블번호, o_s_id받아와서 Order collection에 doc 추가.
-@app.route('/initial', methods=['POST'])
-def save_table_no():
-    i = CalNexts_o_id(Order)
-    table_no_receive = request.form['table_no_give']
-    table_num = int(table_no_receive)
-
-    # data=request.json
-    # table_no_receive=jsonify(data)['table_no_give']
-    print("table num : ", table_num)
-    doc = {
-        'o_id': i,
-        'table_no': table_num,
-        'menu': "",
-        'total_price': 0,
-        'status': "처리중"
-    }
-    Order.insert_one(doc)
-    return jsonify({'o_id': i})
+# @app.route('/initial', methods=['POST'])
+# def save_table_no():
+#     i = CalNexts_o_id(Order)
+#     table_no_receive = request.form['table_no_give']
+#     table_num = int(table_no_receive)
+#
+#
+#     # print("table num : ", table_num)
+#     doc = {
+#         'o_id': i,
+#         'table_no': table_num,
+#         'menu': "",
+#         'total_price': 0,
+#         'status': "처리중"
+#     }
+#     Order.insert_one(doc)
+#     return jsonify({'o_id': i})
 
 
 # 메뉴화면 연결 확인
@@ -140,18 +140,33 @@ def show_menu():
 def menu_payment():
     data = request.get_json()
     menu_list = data['menulist_give']
-    o_id = int(data['o_id_give'])
+    i = CalNexts_o_id(Order)
+    # o_id = int(data['o_id_give'])
     total_price = int(data['total_price_give'])
     now = datetime.datetime.utcnow()
-    db.Order.update(
-        {"o_id": o_id},
-        {
-            "$set": {
-                "menu": menu_list,
-                "total_price": total_price,
-                "date": now
-            }
-        })
+    table_no = GetValue(Robot, 1, 'table_no')
+
+    doc = {
+        'o_id': i,
+        'table_no': table_no,
+        'menu': menu_list,
+        'total_price':total_price ,
+        'status': "처리중",
+        "date": now
+
+    }
+    Order.insert_one(doc)
+
+
+    # db.Order.update(
+    #     {"o_id": o_id},
+    #     {
+    #         "$set": {
+    #             "menu": menu_list,
+    #             "total_price": total_price,
+    #             "date": now
+    #         }
+    #     })
     db.Robot.update_one(
         {"now_work": 1},
         {
@@ -178,7 +193,7 @@ def show_order():
     # print("page : ",page)
     # orders = list(Order.find({}, {'_id': False}).skip((page - 1) * 10).limit(10))
     orders = list(Order.find({}, {'_id': False}))
-    print(orders)
+    # print(orders)
     return jsonify({'all_orders': orders})
 
 
@@ -189,13 +204,13 @@ def info():
 
 
 # info 페이지에 판매내역 보여주는 api
-@app.route('/info_pos', methods=['GET'])
+@app.route('/show_info', methods=['GET'])
 def show_info():
     menu = list(MenuList.find({}, {'_id': False}))
     menu_max = list(MenuList_max.find({}, {'_id': False}))
     menu_min = list(MenuList_min.find({}, {'_id': False}))
 
-    print(menu)
+    print("menu나오니?",menu)
     return jsonify({'all_menu': menu, 'menu_max': menu_max, 'menu_min': menu_min})
 
 
@@ -215,13 +230,13 @@ def CountMenu(collection, ):
             id = j['id']
             name = j['name']
             count = int(j['count'])
-            print(id, name, count)
+            # print(id, name, count)
             dic_count[id] = dic_count[id] + count
             dic_total_price[id] = dic_price[id] * dic_count[id]
-            print("dic_count: ", dic_count)
+            # print("dic_count: ", dic_count)
 
     for i in range(0, 16):
-        print(i, dic_name[i], dic_count[i], dic_total_price[i])
+        # print(i, dic_name[i], dic_count[i], dic_total_price[i])
         doc = {
             'm_id': i,
             'menu_name': dic_name[i],
@@ -237,7 +252,7 @@ def CountMenu(collection, ):
         if max < dic_count[i]:
             max = dic_count[i]
             max_index = i
-    print("최다 판매 메뉴: ", dic_name[max_index], dic_count[max_index], dic_total_price[max_index])
+    # print("최다 판매 메뉴: ", dic_name[max_index], dic_count[max_index], dic_total_price[max_index])
 
     for i in range(0, 16):
         if max == dic_count[i]:
@@ -257,7 +272,7 @@ def CountMenu(collection, ):
             if min > dic_count[i]:
                 min = dic_count[i]
                 min_index = i
-    print("최소 판매 메뉴: ", dic_name[min_index], dic_count[min_index], dic_total_price[min_index])
+    # print("최소 판매 메뉴: ", dic_name[min_index], dic_count[min_index], dic_total_price[min_index])
 
     for i in range(0, 16):
         if min == dic_count[i]:
@@ -277,8 +292,9 @@ def info_insert():
     db.MenuList_max.drop()
     db.MenuList_min.drop()
     CountMenu(Order)
-    print("dic_count: ", dic_count)
-    print("dic_total_price: ", dic_total_price)
+    # print("dic_count: ", dic_count)
+    # print("dic_total_price: ", dic_total_price)
+    print("info_insert()함수 성공!")
 
     return jsonify()
 
@@ -288,7 +304,7 @@ def info_insert():
 def status_change():
     data = request.get_json()
     o_id = data['o_id_give']
-    print("o_id : ", o_id)
+    # print("o_id : ", o_id)
 
     db.Order.update(
         {"o_id": o_id},
@@ -305,20 +321,23 @@ def status_change():
 def robot_call():
     data = request.get_json()
     table_no_receive = data['table_no_give']
-    o_id_receive = data['o_id_give']
+    table_int = int(table_no_receive)
+    o_id_receive = int(data['o_id_give'])
     print("o_id_receive:",o_id_receive)
 
-    status = GetValue2(Order, o_id_receive, "status")
-    print("status:", status)
+    o_status=str()
+    o_status = GetValue2(Order, o_id_receive, 'status')
 
-    table_int = int(table_no_receive)
-    print(table_int)
-    i = int()
-    i = CalNexts_s_id(Center)
-    data = {'s_id': i, 'table_no': table_int, 'sig': 0, 'now_work': 1}
-    Center.insert_one(data)
+    if o_status=="처리중":
+        i = int()
+        i = CalNexts_s_id(Center)
+        data = {'s_id': i, 'table_no': table_int, 'sig': 0, 'now_work': 1}
+        Center.insert_one(data)
+        msg='호출정보가 Center에 저장되었습니다!.'
+    else:
+        msg='이미 처리된 주문건입니다.'
 
-    return jsonify({'msg': '호출정보가 Center에 저장되었습니다!.'})
+    return jsonify({'msg': msg} )
 
 
 # 서빙준비완료 버튼
@@ -328,30 +347,33 @@ def robot_call():
 def prepare_complete():
     check = int()
     table_no = GetValue(Robot, 1, 'table_no')
-    print("table_no : ",table_no)
+    # print("table_no : ",table_no)
 
     data = request.get_json()
     order_no_receive = int(data['order_no_give'])
-    print(order_no_receive)
+    o_status = GetValue2(Order, order_no_receive, 'status')
+    print("o_status:", o_status)
 
-    db.Order.update_one(
-        {"o_id": order_no_receive},
-        {
-            "$set": {
-                "status": "처리완료"
-            }
-        })
-    print("출력")
+    if o_status=="처리중":
+        db.Order.update_one(
+            {"o_id": order_no_receive},
+            {
+                "$set": {
+                    "status": "처리완료"
+                }
+            })
 
-    db.Robot.update_one(
-        {"now_work": 1},
-        {
-            "$set": {
-                "sig": 1
-            }
-        })
-
-    return jsonify({'msg': str(table_no) + '번 테이블 주문의 서빙준비가 완료되었습니다'})
+        db.Robot.update_one(
+            {"now_work": 1},
+            {
+                "$set": {
+                    "sig": 1
+                }
+            })
+        msg = str(table_no)+'번 테이블 주문의 서빙준비가 완료되었습니다.'
+    else:
+        msg='이미 처리된 주문건입니다.'
+    return jsonify({'msg':msg})
 
 
 # 데이터 삭제 버튼
@@ -372,7 +394,7 @@ def delete_data():
 @app.route('/serving_complete', methods=['POST'])
 def serving_complete():
     s_id = GetValue(Robot, 1, 's_id')
-    print("s_id:", s_id)
+    # print("s_id:", s_id)
     if s_id == 0:
         msg = "도착 정보가 없습니다."
     else:
@@ -385,7 +407,7 @@ def serving_complete():
                 }
             })
         msg = "서빙이 완료되었습니다."
-    print(msg)
+    # print(msg)
     return jsonify({'msg': msg})
 
 

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
@@ -144,7 +143,7 @@
 
                         let total_price = orders[i]['total_price']
                         let status = orders[i]['status']
-                        let date=orders[i]['date']
+                        let date = orders[i]['date']
                         let menu = menu_list[i]
                         // menu_list=menu_list.substr(0,menu_list.length-1);
 
@@ -240,22 +239,26 @@
 
         //로봇호출 버튼 누르는 함수
         // center에 s_id, table_no, sig=0, now_work=1 값 insert
+        var table_no = 0;
+        var o_id = 0;
+        var process_color = "";
+
         function robot_call() {
             var checkbox = $("input:radio[name='order_checkbox']:checked");
-            var table_no = 0
-            var o_id=0
+
             checkbox.each(function (i) {
                 var tr = checkbox.parent().parent().eq(i);
                 var td = tr.children();
                 table_no = td.eq(2).text();
-                o_id=td.eq(1).text();
+                o_id = td.eq(1).text();
+                process_color = td.eq(5).text();
             })
             console.log("robot_call 함수 실행")
-            console.log(table_no)
+            console.log("table_no:", table_no)
             if (table_no == 0) {
                 alert("해당 주문을 선택해주세요.")
             } else {
-                var data = JSON.stringify({table_no_give: table_no,o_id_give:o_id})
+                var data = JSON.stringify({table_no_give: table_no, o_id_give: o_id})
 
                 $.ajax({
                     type: "POST",
@@ -270,7 +273,7 @@
                 })
 
             }
-             location.reload();
+            location.reload();
         }
 
 
@@ -318,7 +321,9 @@
 
                 }
             })
-            setTimeout(function(){   window.location.reload()}, 1000);
+            setTimeout(function () {
+                window.location.reload()
+            }, 1000);
 
         }
 
